@@ -3,6 +3,7 @@ import korlibs.image.atlas.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
+import korlibs.korge.input.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.time.*
@@ -23,6 +24,16 @@ object Config {
 
     const val randomMovingMin = 1.5
     const val randomMovingMax = 5.0
+
+    const val isDebug = true
+
+    fun debug(
+        block: () -> Unit = {}
+    ) {
+        if (isDebug) {
+            block()
+        }
+    }
 }
 
 suspend fun main() = Korge(
@@ -32,7 +43,50 @@ suspend fun main() = Korge(
     backgroundColor = Config.backgroundColors
 ) {
     val spriteAtlas = resourcesVfs["Sunny-Land/atlas/atlas.json"].readAtlas()
-    testDisplayEagles(spriteAtlas)
+    /**
+     * If you want display with random moving
+     *  testDisplayEagles(spriteAtlas)
+     */
+
+    testInputMouseClicks(spriteAtlas)
+}
+
+/**
+ * Control moving [Sprite] to [Point] on [Container]
+ * in witch user click.
+ * @see <a href="https://docs.korge.org/views/input/">KorGE:Input</a>
+ */
+private fun Container.testInputMouseClicks(
+    spriteAtlas: Atlas,
+) {
+    val sprite = displaySprite(
+        atlas = spriteAtlas,
+        name = SpriteName.eagle,
+        position = getRandomPosition(),
+        useRandomMoving = false
+    )
+
+    mouse {
+        click {
+            val point: Point = input.mousePos
+            sprite.x = point.x
+            sprite.y = point.y
+
+            debugLog("Mouse click point = $point")
+        }
+    }
+}
+
+var debugText: Text? = null
+private fun Container.debugLog(
+    message: String
+) {
+    Config.debug {
+        when (debugText) {
+            null -> debugText = text(text = message)
+            else -> debugText?.text = message
+        }
+    }
 }
 
 /**
