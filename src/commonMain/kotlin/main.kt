@@ -68,13 +68,46 @@ private fun Container.testInputMouseClicks(
 
     mouse {
         click {
-            val point: Point = input.mousePos
-            sprite.x = point.x
-            sprite.y = point.y
+            val point = input.mousePos
+            val spriteSizeDiffs = sprite.getSizeDiffs()
+
+            /**
+             * Calculate x position of [Sprite]
+             * X is top left
+             * If user click on x = 0, we must set x + [Sprite.width] / 2 because
+             * [Sprite] will be visible full by width
+             * And the same for click on end of the window
+             */
+            val x = point.x - spriteSizeDiffs.x
+            sprite.x = when {
+                x < 0 -> 0f
+                x > Config.windowSize.width -> Config.windowSize.width - 2 * spriteSizeDiffs.x
+                else -> x
+            }
+
+            /**
+             * The same logic as for calculating X
+             */
+            val y = point.y - spriteSizeDiffs.y
+            sprite.y = when {
+                y < 0 -> 0f
+                y > Config.windowSize.height -> Config.windowSize.height - 2 * spriteSizeDiffs.y
+                else -> y
+            }
 
             debugLog("Mouse click point = $point")
         }
     }
+}
+
+/**
+ * Calculate half width and half height of [Sprite] with [Sprite.scaleXY]
+ * @return [Position] with half values
+ */
+private fun Sprite.getSizeDiffs(): Position {
+    val x = (width * scaleXY).div(2)
+    val y = (height * scaleXY).div(2)
+    return Position(x, y)
 }
 
 var debugText: Text? = null
