@@ -3,6 +3,7 @@ import korlibs.image.atlas.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
+import korlibs.korge.animate.*
 import korlibs.korge.input.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
@@ -78,8 +79,8 @@ private fun Container.testInputMouseClicks(
              * [Sprite] will be visible full by width
              * And the same for click on end of the window
              */
-            val x = point.x - spriteSizeDiffs.x
-            sprite.x = when {
+            var x = point.x - spriteSizeDiffs.x
+            x = when {
                 x < 0 -> 0f
                 x > Config.windowSize.width -> Config.windowSize.width - 2 * spriteSizeDiffs.x
                 else -> x
@@ -88,12 +89,18 @@ private fun Container.testInputMouseClicks(
             /**
              * The same logic as for calculating X
              */
-            val y = point.y - spriteSizeDiffs.y
-            sprite.y = when {
+            var y = point.y - spriteSizeDiffs.y
+            y = when {
                 y < 0 -> 0f
                 y > Config.windowSize.height -> Config.windowSize.height - 2 * spriteSizeDiffs.y
                 else -> y
             }
+
+            val animator = animator(parallel = false)
+            animator.moveTo(
+                sprite,
+                x, y
+            )
 
             debugLog("Mouse click point = $point")
         }

@@ -13,6 +13,7 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
  - Display Sprite and move it to Mouse point click.
 
 ### Result of projects
+ - Demo 2: Moving Sprite to point of Click Mouse with animator https://t.me/CodeEveryDayWithMe/777 
  - Demo 2: Moving Sprite to point of Click Mouse and centered Sprite to this point https://t.me/CodeEveryDayWithMe/773
  - Demo 1: Moving Sprite to point of Click Mouse https://t.me/CodeEveryDayWithMe/771
 
