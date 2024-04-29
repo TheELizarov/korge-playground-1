@@ -7,6 +7,7 @@ import korlibs.korge.animate.*
 import korlibs.korge.input.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
+import korlibs.math.interpolation.*
 import korlibs.time.*
 import kotlin.math.*
 import kotlin.random.*
@@ -99,7 +100,9 @@ private fun Container.testInputMouseClicks(
             val animator = animator(parallel = false)
             animator.moveTo(
                 sprite,
-                x, y
+                x, y,
+                time = TimeSpan(2000.0),
+                easing = Easing.EASE_OUT_BOUNCE
             )
 
             debugLog("Mouse click point = $point")
