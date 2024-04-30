@@ -119,8 +119,49 @@ private fun Container.testInputMouseClicks(
         selector = sprite,
         autoMove = true
     ) { draggableInfo ->
-//        sprite.x = draggableInfo.viewNextX
-//        sprite.y = draggableInfo.viewNextY
+        val x = draggableInfo.viewNextX
+        val y = draggableInfo.viewNextY
+
+        debugLog("Drag and drop to point = $x,$y ")
+
+        /**
+         * Correcting position [Sprite] if user
+         * drag it from window
+         * It return [Sprite] on Screen
+         */
+        val animator = animator(parallel = false)
+        when {
+            x < 0 -> {
+                animator.moveTo(
+                    sprite,
+                    x = 0f,
+                    y = y
+                )
+            }
+            x > Config.windowSize.width -> {
+                animator.moveTo(
+                    sprite,
+                    x = Config.windowSize.width - 2 * sprite.getSizeDiffs().x,
+                    y = y
+                )
+            }
+        }
+        when {
+            y < 0 -> {
+                animator.moveTo(
+                    sprite,
+                    x = x,
+                    y = 0f
+                )
+            }
+            x > Config.windowSize.height -> {
+                animator.moveTo(
+                    sprite,
+                    x = x,
+                    y = Config.windowSize.height - 2 * sprite.getSizeDiffs().y
+                )
+            }
+        }
     }
 }
 
