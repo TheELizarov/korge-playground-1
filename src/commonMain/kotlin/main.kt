@@ -140,38 +140,23 @@ private fun Container.controlByDragAndDrop(
          * drag it from window
          * It return [Sprite] on Screen
          */
-        val animator = animator(parallel = false)
-        when {
-            x < 0 -> {
-                animator.moveTo(
-                    sprite,
-                    x = 0f,
-                    y = y
-                )
-            }
-            x > Config.windowSize.width -> {
-                animator.moveTo(
-                    sprite,
-                    x = Config.windowSize.width - 2 * sprite.getSizeDiffs().x,
-                    y = y
-                )
-            }
+        val correctionX = when {
+            x < 0 -> 0f
+            x > Config.windowSize.width -> Config.windowSize.width - 2 * sprite.getSizeDiffs().x
+            else -> x
         }
-        when {
-            y < 0 -> {
-                animator.moveTo(
-                    sprite,
-                    x = x,
-                    y = 0f
-                )
-            }
-            x > Config.windowSize.height -> {
-                animator.moveTo(
-                    sprite,
-                    x = x,
-                    y = Config.windowSize.height - 2 * sprite.getSizeDiffs().y
-                )
-            }
+        val correctionY = when {
+            y < 0 -> 0f
+            y > Config.windowSize.height -> Config.windowSize.height - 2 * sprite.getSizeDiffs().y
+            else -> y
+        }
+        if (correctionX != x || correctionY != y) {
+            val animator = animator(parallel = false)
+            animator.moveTo(
+                view = sprite,
+                x = correctionX,
+                y = correctionY
+            )
         }
     }
 }
