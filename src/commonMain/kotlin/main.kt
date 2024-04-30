@@ -68,6 +68,9 @@ private fun Container.testInputMouseClicks(
         useRandomMoving = false
     )
 
+    /**
+     * Handling click of mouse and moving sprite to Point of clicks
+     */
     mouse {
         click {
             val point = input.mousePos
@@ -102,11 +105,22 @@ private fun Container.testInputMouseClicks(
                 sprite,
                 x, y,
                 time = TimeSpan(2000.0),
-                easing = Easing.EASE_OUT_BOUNCE
+                easing = Easing.EASE_OUT
             )
 
             debugLog("Mouse click point = $point")
         }
+    }
+
+    /**
+     * Using drag-and-drop for [Sprite]
+     */
+    sprite.draggableCloseable(
+        selector = sprite,
+        autoMove = true
+    ) { draggableInfo ->
+//        sprite.x = draggableInfo.viewNextX
+//        sprite.y = draggableInfo.viewNextY
     }
 }
 
