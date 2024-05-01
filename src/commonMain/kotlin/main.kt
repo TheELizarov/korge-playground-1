@@ -1,4 +1,4 @@
-
+import korlibs.event.*
 import korlibs.image.atlas.*
 import korlibs.image.color.*
 import korlibs.io.file.std.*
@@ -70,12 +70,13 @@ private fun Container.testInputMouseClicks(
 
     controlByMouse(sprite)
     controlByDragAndDrop(sprite)
+    controlByKeys(sprite)
 }
 
 /**
  * Handling click of mouse and moving sprite to [Point] of clicks
  */
-private fun  Container.controlByMouse(
+private fun Container.controlByMouse(
     sprite: Sprite
 ) {
     mouse {
@@ -162,6 +163,41 @@ private fun Container.controlByDragAndDrop(
 }
 
 /**
+ * Handling keyboard clicks for control to position of [Sprite]
+ * Default value of changing position is 50f
+ */
+private fun Container.controlByKeys(
+    sprite: Sprite
+) {
+    val diffs = 50f
+    val blockOnClick: (x: Float, y: Float, log: String) -> Unit = { x, y, log ->
+        val animator = animator(parallel = false)
+        val toX = sprite.x + x
+        val toY = sprite.y + y
+        animator.moveTo(
+            view = sprite,
+            x = toX,
+            y = toY
+        )
+        debugLog("Click Key = $log, move to point = $toX, $toY")
+    }
+    keys {
+        down(Key.LEFT) {
+            blockOnClick(-diffs,  0f, "left")
+        }
+        down(Key.RIGHT) {
+            blockOnClick(diffs,  0f, "right")
+        }
+        down(Key.UP) {
+            blockOnClick(0f,  -diffs, "up")
+        }
+        down(Key.DOWN) {
+            blockOnClick(0f,  diffs, "down")
+        }
+    }
+}
+
+/**
  * Calculate half width and half height of [Sprite] with [Sprite.scaleXY]
  * @return [Position] with half values
  */
@@ -190,7 +226,7 @@ private fun Container.debugLog(
 private fun Container.testDisplayEagles(
     spriteAtlas: Atlas,
     count: Int = 3
-) : List<Sprite> {
+): List<Sprite> {
     return List(count) {
         displaySprite(
             atlas = spriteAtlas,
@@ -212,7 +248,7 @@ private fun Container.displaySprite(
     scaleXY: Int? = 5,
     displayTime: Double? = 100.0,
     useRandomMoving: Boolean = true
-) : Sprite {
+): Sprite {
     val spriteAnimation = atlas.getSpriteAnimation(name)
 
     val sprite = sprite(spriteAnimation) {
