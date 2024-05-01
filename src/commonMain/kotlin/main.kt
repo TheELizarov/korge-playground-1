@@ -172,8 +172,24 @@ private fun Container.controlByKeys(
     val diffs = 50f
     val blockOnClick: (x: Float, y: Float, log: String) -> Unit = { x, y, log ->
         val animator = animator(parallel = false)
-        val toX = sprite.x + x
-        val toY = sprite.y + y
+
+        val maxX = Config.windowSize.width - 2 * sprite.getSizeDiffs().x
+        val maxY = Config.windowSize.height - 2 * sprite.getSizeDiffs().y
+
+        var toX = sprite.x + x
+        toX = when {
+            toX < 0f -> 0f
+            toX > maxX -> maxX
+            else -> toX
+        }
+
+        var toY = sprite.y + y
+        toY = when {
+            toY < 0f -> 0f
+            toY > maxY -> maxY
+            else -> toY
+        }
+
         animator.moveTo(
             view = sprite,
             x = toX,
