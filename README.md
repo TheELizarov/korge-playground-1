@@ -13,6 +13,7 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
  - Display Sprite and move it to Mouse point click.
 
 ### Result of projects
+ - Demo 7: Moving Sprite by keyboard left, right up, down keys https://t.me/CodeEveryDayWithMe/790 
  - Demo 6: Moving Sprite by drag and drop with auto correction position https://t.me/CodeEveryDayWithMe/785
  - Demo 5: Moving Sprite by drag and drop https://t.me/CodeEveryDayWithMe/783
  - Demo 4: Moving Sprite to point of Click Mouse with different animators https://t.me/CodeEveryDayWithMe/782
