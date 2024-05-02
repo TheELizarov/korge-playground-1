@@ -50,7 +50,7 @@ suspend fun main() = Korge(
      *  testDisplayEagles(spriteAtlas)
      */
 
-    testInputMouseClicks(spriteAtlas)
+    testInputsForControlling(spriteAtlas)
 }
 
 /**
@@ -58,7 +58,7 @@ suspend fun main() = Korge(
  * in witch user click.
  * @see <a href="https://docs.korge.org/views/input/">KorGE:Input</a>
  */
-private fun Container.testInputMouseClicks(
+private fun Container.testInputsForControlling(
     spriteAtlas: Atlas,
 ) {
     val sprite = displaySprite(
@@ -71,6 +71,7 @@ private fun Container.testInputMouseClicks(
     controlByMouse(sprite)
     controlByDragAndDrop(sprite)
     controlByKeys(sprite)
+    controlByVirtualController(sprite)
 }
 
 /**
@@ -209,6 +210,68 @@ private fun Container.controlByKeys(
         }
         down(Key.DOWN) {
             blockOnClick(0f,  diffs, "down")
+        }
+    }
+}
+
+/**
+ * Control [Sprite] by [VirtualController]
+ */
+private fun Container.controlByVirtualController(
+    sprite: Sprite
+) {
+    val buttonRadius = 110f
+    val virtualController = virtualController(
+        buttons = listOf(),
+        buttonRadius = buttonRadius
+    ).also { it.container.alpha(0.5f) }
+
+    val diffs = 50f
+    val blockOnClick: (x: Float, y: Float, log: String) -> Unit = { x, y, log ->
+        val animator = animator(parallel = false)
+
+        val maxX = Config.windowSize.width - 2 * sprite.getSizeDiffs().x
+        val maxY = Config.windowSize.height - 2 * sprite.getSizeDiffs().y
+
+        var toX = sprite.x + x
+        toX = when {
+            toX < 0f -> 0f
+            toX > maxX -> maxX
+            else -> toX
+        }
+
+        var toY = sprite.y + y
+        toY = when {
+            toY < 0f -> 0f
+            toY > maxY -> maxY
+            else -> toY
+        }
+
+        animator.moveTo(
+            view = sprite,
+            x = toX,
+            y = toY
+        )
+        debugLog("Stick = $log, move to point = $toX, $toY")
+    }
+
+
+    virtualController.changed(GameButton.LX) { event ->
+        if (event.newBool) {
+            val dx = when {
+                event.new > 0f -> diffs
+                else -> -diffs
+            }
+            blockOnClick(dx, 0f, "horizontal")
+        }
+    }
+    virtualController.changed(GameButton.LY) { event ->
+        if (event.newBool) {
+            val dy = when {
+                event.new > 0f -> diffs
+                else -> -diffs
+            }
+            blockOnClick(0f, dy, "vertical")
         }
     }
 }
