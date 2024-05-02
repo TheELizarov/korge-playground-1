@@ -13,7 +13,8 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 - Display 2 sprites and handling collisions
 
 ### Result of projects
-- Demo 1: Display 2 Sprites and check collisions https://t.me/CodeEveryDayWithMe/799
+ - Demo 2: Display Destroy Bang on Collisions https://t.me/CodeEveryDayWithMe/802
+ - Demo 1: Display 2 Sprites and check collisions https://t.me/CodeEveryDayWithMe/799
 
 ## playground/using-inputs
 

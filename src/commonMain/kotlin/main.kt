@@ -1,6 +1,7 @@
 import korlibs.event.*
 import korlibs.image.atlas.*
 import korlibs.image.color.*
+import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.animate.*
@@ -84,9 +85,32 @@ private fun Container.testCollisionsOfSprites(
     spriteEagle.onCollision { view ->
         when (view.name) {
             SpriteName.cherry -> {
+                displaySpriteDestroyOnce(
+                    spriteAtlas,
+                    position = Position(
+                        spriteCherry.x,
+                        spriteCherry.y
+                    )
+                )
                 removeChild(spriteCherry)
             }
         }
+    }
+}
+
+private fun Container.displaySpriteDestroyOnce(
+    atlas: Atlas,
+    position: Position
+) {
+    val sprite = displaySprite(
+        atlas = atlas,
+        name = SpriteName.destroy,
+        position = position,
+        useRandomMoving = false,
+        playAnimationLooped = false
+    )
+    sprite.onAnimationCompleted.invoke {
+        removeChild(sprite)
     }
 }
 
@@ -363,7 +387,8 @@ private fun Container.displaySprite(
     position: Position = Position(),
     scaleXY: Int? = 5,
     displayTime: Double? = 100.0,
-    useRandomMoving: Boolean = true
+    useRandomMoving: Boolean = true,
+    playAnimationLooped: Boolean = true
 ): Sprite {
     val spriteAnimation = atlas.getSpriteAnimation(name)
 
@@ -376,9 +401,19 @@ private fun Container.displaySprite(
     }
     sprite.name = name
 
-    sprite.playAnimationLooped(
-        spriteDisplayTime = TimeSpan(displayTime ?: 0.0)
-    )
+    when {
+        playAnimationLooped -> {
+            sprite.playAnimationLooped(
+                spriteDisplayTime = TimeSpan(displayTime ?: 0.0)
+            )
+        }
+        else -> {
+            sprite.playAnimation(
+                spriteDisplayTime = TimeSpan(displayTime ?: 0.0)
+            )
+        }
+    }
+
 
     if (useRandomMoving) {
         movingRandom(sprite)
@@ -456,4 +491,5 @@ data class Position(
 object SpriteName {
     const val eagle = "eagle"
     const val cherry = "cherry"
+    const val destroy = "enemy-death"
 }
