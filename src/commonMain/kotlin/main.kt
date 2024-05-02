@@ -6,6 +6,7 @@ import korlibs.korge.*
 import korlibs.korge.animate.*
 import korlibs.korge.input.*
 import korlibs.korge.view.*
+import korlibs.korge.view.collision.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
@@ -50,7 +51,43 @@ suspend fun main() = Korge(
      *  testDisplayEagles(spriteAtlas)
      */
 
-    testInputsForControlling(spriteAtlas)
+    /**
+     * if you want to test different methods of control Sprite
+     *  testInputsForControlling(spriteAtlas)
+     */
+
+    testCollisionsOfSprites(spriteAtlas)
+}
+
+private fun Container.testCollisionsOfSprites(
+    spriteAtlas: Atlas
+) {
+    val spriteEagle = displaySprite(
+        atlas = spriteAtlas,
+        name = SpriteName.eagle,
+        position = getRandomPosition(),
+        useRandomMoving = false
+    )
+
+    val spriteCherry = displaySprite(
+        atlas = spriteAtlas,
+        name = SpriteName.cherry,
+        position = Position(
+            x = Config.windowSize.width/2,
+            y = Config.windowSize.height/2,
+        ),
+        useRandomMoving = false
+    )
+
+    controlByKeys(spriteEagle)
+
+    spriteEagle.onCollision { view ->
+        when (view.name) {
+            SpriteName.cherry -> {
+                removeChild(spriteCherry)
+            }
+        }
+    }
 }
 
 /**
@@ -337,6 +374,7 @@ private fun Container.displaySprite(
         x = position.x
         y = position.y
     }
+    sprite.name = name
 
     sprite.playAnimationLooped(
         spriteDisplayTime = TimeSpan(displayTime ?: 0.0)
@@ -417,4 +455,5 @@ data class Position(
 
 object SpriteName {
     const val eagle = "eagle"
+    const val cherry = "cherry"
 }
