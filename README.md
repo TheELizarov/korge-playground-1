@@ -6,6 +6,15 @@ One branch for one completed simple project.
 
 More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe 
 
+## playground/apply-collisions
+
+### Description
+- For this project using https://docs.korge.org/physics/
+- Display 2 sprites and handling collisions
+
+### Result of projects
+- Demo 1: Display 2 Sprites and check collisions ...
+
 ## playground/using-inputs
 
 ### Description
