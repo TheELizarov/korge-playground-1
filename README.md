@@ -6,6 +6,14 @@ One branch for one completed simple project.
 
 More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe 
 
+## playground/game-eagle-collect-cherry
+
+### Description
+- Simple Game: Eagle fly on the screen and collect Cherry witch generate in random position on Screen
+
+### Result of projects
+- Demo 1: Simple game Eagle collect Cherry https://t.me/CodeEveryDayWithMe/808
+
 ## playground/apply-collisions
 
 ### Description
