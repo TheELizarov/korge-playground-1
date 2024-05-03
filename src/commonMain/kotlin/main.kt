@@ -73,10 +73,7 @@ private fun Container.testCollisionsOfSprites(
     val spriteCherry = displaySprite(
         atlas = spriteAtlas,
         name = SpriteName.cherry,
-        position = Position(
-            x = Config.windowSize.width/2,
-            y = Config.windowSize.height/2,
-        ),
+        position = getCenterPosition(),
         useRandomMoving = false
     )
 
@@ -462,6 +459,13 @@ private fun getRandomPosition(): Position {
     return Position(
         x = getRandom(max = Config.windowSize.width.toDouble()),
         y = getRandom(max = Config.windowSize.height.toDouble())
+    )
+}
+
+private fun getCenterPosition(): Position {
+    return Position(
+        x = Config.windowSize.width.div(2),
+        y = Config.windowSize.height.div(2),
     )
 }
 
