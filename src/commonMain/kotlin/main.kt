@@ -1,7 +1,6 @@
 import korlibs.event.*
 import korlibs.image.atlas.*
 import korlibs.image.color.*
-import korlibs.io.async.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.animate.*
@@ -11,6 +10,7 @@ import korlibs.korge.view.collision.*
 import korlibs.math.geom.*
 import korlibs.math.interpolation.*
 import korlibs.time.*
+import state.*
 import kotlin.math.*
 import kotlin.random.*
 
@@ -57,9 +57,84 @@ suspend fun main() = Korge(
      *  testInputsForControlling(spriteAtlas)
      */
 
-    testCollisionsOfSprites(spriteAtlas)
+    /**
+     * If you want to test collisions of Sprite
+     *  testCollisionsOfSprites(spriteAtlas)
+     */
+
+    startEagleAndCherryGame(spriteAtlas)
 }
 
+private fun Container.startEagleAndCherryGame(
+    spriteAtlas: Atlas
+) {
+    val stateGame = EagleAndCherryGameState()
+
+    val spriteEagle = displaySprite(
+        atlas = spriteAtlas,
+        name = SpriteName.eagle,
+        position = getRandomPosition(),
+        useRandomMoving = false
+    )
+
+    controlByKeys(spriteEagle)
+
+    val score = text(
+        text = "Score: ${stateGame.score}"
+    )
+    score.scaleXY = 5f
+
+    /**
+     * Per 5 seconds generate Cherry [Sprite]
+     * in random [Position]
+     *
+     * If Eagle takes it [EagleAndCherryGameState.score] increment
+     * and display on window
+     *
+     * If eagle does not take it, Cherry will be removing
+     */
+    var spriteCherry: Sprite? = null
+    addFixedUpdater(
+        timesPerSecond = Frequency.from(TimeSpan(5000.0))
+    ) {
+        removeChild(spriteCherry)
+        spriteCherry = null
+
+        spriteCherry = displaySprite(
+            atlas = spriteAtlas,
+            name = SpriteName.cherry,
+            position = getRandomPosition(),
+            useRandomMoving = false
+        )
+
+        spriteEagle.onCollision { view ->
+            when (view.name) {
+                SpriteName.cherry -> {
+                    spriteCherry?.let { sprite ->
+                        stateGame.increment()
+                        score.text = "Score: ${stateGame.score}"
+
+                        val spriteSizeDiffs = sprite.getSizeDiffs()
+                        displaySpriteDestroyOnce(
+                            spriteAtlas,
+                            position = Position(
+                                sprite.x + spriteSizeDiffs.x,
+                                sprite.y + spriteSizeDiffs.y
+                            )
+                        )
+
+                        removeChild(spriteCherry)
+                        spriteCherry = null
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Create two [Sprite] and check it collisions
+ */
 private fun Container.testCollisionsOfSprites(
     spriteAtlas: Atlas
 ) {
@@ -110,6 +185,13 @@ private fun Container.displaySpriteDestroyOnce(
         position = position,
         useRandomMoving = false,
         playAnimationLooped = false
+    )
+    val spriteDiffs = sprite.getSizeDiffs()
+    sprite.position(
+        Point(
+            position.x - spriteDiffs.x,
+            position.y - spriteDiffs.y
+        )
     )
     sprite.onAnimationCompleted.invoke {
         removeChild(sprite)
