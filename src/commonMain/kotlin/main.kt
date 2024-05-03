@@ -95,6 +95,11 @@ private fun Container.testCollisionsOfSprites(
     }
 }
 
+/**
+ * Create [Sprite] for animate destroy [Sprite] with [SpriteName.destroy] for any
+ * in [position]
+ * [SpriteAnimation] play once and after that [Sprite] remove from [Container]
+ */
 private fun Container.displaySpriteDestroyOnce(
     atlas: Atlas,
     position: Position
