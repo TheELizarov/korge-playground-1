@@ -79,10 +79,7 @@ private fun Container.startEagleAndCherryGame(
 
     controlByKeys(spriteEagle)
 
-    val score = text(
-        text = "Score: ${stateGame.score}"
-    )
-    score.scaleXY = 5f
+    displayScore(stateGame.score)
 
     /**
      * Per 5 seconds generate Cherry [Sprite]
@@ -111,13 +108,26 @@ private fun Container.startEagleAndCherryGame(
                     onCollisionEagleAndCherry(
                         spriteAtlas,
                         spriteCherry,
-                        score,
                         stateGame
                     )
                     spriteCherry = null
                 }
             }
         }
+    }
+}
+
+private var scoreText: Text? = null
+private fun Container.displayScore(
+    value: Int
+) {
+    val text = "Score: $value"
+    when (scoreText) {
+        null -> {
+            scoreText = text(text = text)
+            scoreText?.scaleXY = 5f
+        }
+        else -> scoreText?.text = text
     }
 }
 
@@ -135,12 +145,11 @@ private fun Container.onEverySeconds(
 private fun Container.onCollisionEagleAndCherry(
     spriteAtlas: Atlas,
     spriteCherry: Sprite?,
-    score: Text,
     stateGame: EagleAndCherryGameState
 ) {
     spriteCherry?.let { sprite ->
         stateGame.increment()
-        score.text = "Score: ${stateGame.score}"
+        displayScore(stateGame.score)
 
         val spriteSizeDiffs = sprite.getSizeDiffs()
         displaySpriteDestroyOnce(
