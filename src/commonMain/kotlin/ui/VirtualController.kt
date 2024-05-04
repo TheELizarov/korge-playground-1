@@ -1,3 +1,5 @@
+package ui
+
 import korlibs.datastructure.iterators.*
 import korlibs.event.*
 import korlibs.io.async.*
