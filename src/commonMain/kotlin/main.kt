@@ -94,9 +94,7 @@ private fun Container.startEagleAndCherryGame(
      * If eagle does not take it, Cherry will be removing
      */
     var spriteCherry: Sprite? = null
-    addFixedUpdater(
-        timesPerSecond = Frequency.from(TimeSpan(5000.0))
-    ) {
+    onEverySeconds {
         removeChild(spriteCherry)
         spriteCherry = null
 
@@ -110,25 +108,50 @@ private fun Container.startEagleAndCherryGame(
         spriteEagle.onCollision { view ->
             when (view.name) {
                 SpriteName.cherry -> {
-                    spriteCherry?.let { sprite ->
-                        stateGame.increment()
-                        score.text = "Score: ${stateGame.score}"
-
-                        val spriteSizeDiffs = sprite.getSizeDiffs()
-                        displaySpriteDestroyOnce(
-                            spriteAtlas,
-                            position = Position(
-                                sprite.x + spriteSizeDiffs.x,
-                                sprite.y + spriteSizeDiffs.y
-                            )
-                        )
-
-                        removeChild(spriteCherry)
-                        spriteCherry = null
-                    }
+                    onCollisionEagleAndCherry(
+                        spriteAtlas,
+                        spriteCherry,
+                        score,
+                        stateGame
+                    )
+                    spriteCherry = null
                 }
             }
         }
+    }
+}
+
+private fun Container.onEverySeconds(
+    intervalInSeconds: Double = 5000.0,
+    block: () -> Unit = {}
+) {
+    addFixedUpdater(
+        timesPerSecond = Frequency.from(TimeSpan(intervalInSeconds))
+    ) {
+        block()
+    }
+}
+
+private fun Container.onCollisionEagleAndCherry(
+    spriteAtlas: Atlas,
+    spriteCherry: Sprite?,
+    score: Text,
+    stateGame: EagleAndCherryGameState
+) {
+    spriteCherry?.let { sprite ->
+        stateGame.increment()
+        score.text = "Score: ${stateGame.score}"
+
+        val spriteSizeDiffs = sprite.getSizeDiffs()
+        displaySpriteDestroyOnce(
+            spriteAtlas,
+            position = Position(
+                sprite.x + spriteSizeDiffs.x,
+                sprite.y + spriteSizeDiffs.y
+            )
+        )
+
+        removeChild(spriteCherry)
     }
 }
 
