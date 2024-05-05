@@ -1,8 +1,10 @@
 import korlibs.image.atlas.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
+import korlibs.korge.animate.*
 import korlibs.korge.view.*
 import korlibs.korge.view.collision.*
+import korlibs.time.*
 import model.*
 import state.*
 import ui.*
@@ -33,6 +35,7 @@ private fun Container.startEagleAndCherryGame(
     controlByKeys(spriteEagle)
 
     displayScore(stateGame.score)
+    var isYetGameOver = false
 
     /**
      * Per 5 seconds generate Cherry [Sprite]
@@ -45,25 +48,71 @@ private fun Container.startEagleAndCherryGame(
      */
     var spriteCherry: Sprite? = null
     onEverySeconds {
-        removeChild(spriteCherry)
-        spriteCherry = null
+        if (!isYetGameOver) {
+            removeChild(spriteCherry)
+            spriteCherry = null
 
-        spriteCherry = displaySprite(
-            atlas = spriteAtlas,
-            name = SpriteName.cherry,
-            position = getRandomPosition(),
-            useRandomMoving = false
-        )
+            spriteCherry = displaySprite(
+                atlas = spriteAtlas,
+                name = SpriteName.cherry,
+                position = getRandomPosition(),
+                useRandomMoving = false
+            )
 
-        spriteEagle.onCollision { view ->
-            when (view.name) {
-                SpriteName.cherry -> {
-                    onCollisionEagleAndCherry(
-                        spriteAtlas,
-                        spriteCherry,
-                        stateGame
-                    )
-                    spriteCherry = null
+            spriteEagle.onCollision { view ->
+                when (view.name) {
+                    SpriteName.cherry -> {
+                        onCollisionEagleAndCherry(
+                            spriteAtlas,
+                            spriteCherry,
+                            stateGame
+                        )
+                        spriteCherry = null
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Per 3 seconds generate [Sprite] with [SpriteName.gem]
+     * witch will be fall from top to bottom of screen
+     *
+     * If Eagle shall have collision with any Gem
+     * it will be game over
+     */
+    onEverySeconds(3000.0) {
+        if (!isYetGameOver) {
+            val spriteGem = displaySprite(
+                atlas = spriteAtlas,
+                name = SpriteName.gem,
+                position = getRandomPositionTop(),
+                useRandomMoving = false
+            )
+            val animator = animator(parallel = false)
+            animator.moveTo(
+                spriteGem,
+                x = spriteGem.x,
+                y = spriteGem.y + Config.windowSize.height,
+                time = TimeSpan(5000.0)
+            )
+            spriteEagle.onCollision { view ->
+                when (view.name) {
+                    SpriteName.gem -> {
+                        isYetGameOver = true
+                        val spriteSizeDiffs = spriteEagle.getSizeDiffs()
+                        displaySpriteDestroyOnce(
+                            spriteAtlas,
+                            position = Position(
+                                spriteEagle.x + spriteSizeDiffs.x,
+                                spriteEagle.y + spriteSizeDiffs.y
+                            )
+                        )
+                        removeChild(spriteEagle)
+                        removeChild(scoreText)
+                        removeChild(spriteCherry)
+                        displayGameOver()
+                    }
                 }
             }
         }

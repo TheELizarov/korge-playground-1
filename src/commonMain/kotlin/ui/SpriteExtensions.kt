@@ -124,6 +124,13 @@ fun getRandomPosition(): Position {
     )
 }
 
+fun getRandomPositionTop(): Position {
+    return Position(
+        x = getRandom(max = Config.windowSize.width.toDouble()),
+        y = 0f
+    )
+}
+
 fun getCenterPosition(): Position {
     return Position(
         x = Config.windowSize.width.div(2),
@@ -163,6 +170,7 @@ object SpriteName {
     const val eagle = "eagle"
     const val cherry = "cherry"
     const val destroy = "enemy-death"
+    const val gem = "gem"
 }
 
 data class Position(
