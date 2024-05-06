@@ -13,13 +13,54 @@ class EagleAndCherryGameState {
         get() = _score
     private var _score: Int = 0
 
+    val state: State
+        get() = _state
+    private var _state: State = State.LAUNCH
+
     fun increment(
         value: Int = 1
     ) {
         _score += value
     }
 
+    fun changeState(
+        state: State
+    ) {
+        _state = state
+    }
+
     fun reset() {
         _score = 0
+        _state = State.LAUNCH
+    }
+
+    /**
+     * Available states of game
+     */
+    enum class State {
+        /**
+         * First state of the game
+         */
+        LAUNCH,
+
+        /**
+         * Base state when user playing
+         */
+        PLAY,
+
+        /**
+         * User set pause for game
+         */
+        PAUSE,
+
+        /**
+         * User go to menu of the game
+         */
+        MENU,
+
+        /**
+         * User lose
+         */
+        GAME_OVER,
     }
 }
