@@ -9,6 +9,8 @@ import model.*
 import state.*
 import ui.*
 
+val stateGame = EagleAndCherryGameState()
+
 suspend fun initGameEagleCollectCherry() = Korge(
     title = Config.title,
     windowSize = Config.windowSize,
@@ -23,7 +25,8 @@ suspend fun initGameEagleCollectCherry() = Korge(
 private fun Container.startEagleAndCherryGame(
     spriteAtlas: Atlas
 ) {
-    val stateGame = EagleAndCherryGameState()
+
+    stateGame.changeState(EagleAndCherryGameState.State.PLAY)
 
     val spriteEagle = displaySprite(
         atlas = spriteAtlas,
@@ -35,7 +38,6 @@ private fun Container.startEagleAndCherryGame(
     controlByKeys(spriteEagle)
 
     displayScore(stateGame.score)
-    var isYetGameOver = false
 
     /**
      * Per 5 seconds generate Cherry [Sprite]
@@ -48,7 +50,7 @@ private fun Container.startEagleAndCherryGame(
      */
     var spriteCherry: Sprite? = null
     onEverySeconds {
-        if (!isYetGameOver) {
+        stateGame.onPlaying {
             removeChild(spriteCherry)
             spriteCherry = null
 
@@ -82,12 +84,12 @@ private fun Container.startEagleAndCherryGame(
      * it will be game over
      */
     onEverySeconds(Intervals.generateGem) {
-        if (!isYetGameOver) {
+        stateGame.onPlaying {
             displayAndMovingGem(spriteAtlas)
             spriteEagle.onCollision { view ->
                 when (view.name) {
                     SpriteName.gem -> {
-                        isYetGameOver = true
+                        stateGame.changeState(EagleAndCherryGameState.State.GAME_OVER)
                         onCollisionEagleAndGem(
                             spriteAtlas,
                             spriteEagle,

@@ -29,6 +29,15 @@ class EagleAndCherryGameState {
         _state = state
     }
 
+    fun onPlaying(
+        block: () -> Unit = {}
+    ) {
+        when (state) {
+            State.PLAY -> block()
+            else -> Unit
+        }
+    }
+
     fun reset() {
         _score = 0
         _state = State.LAUNCH
