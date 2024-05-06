@@ -81,37 +81,18 @@ private fun Container.startEagleAndCherryGame(
      * If Eagle shall have collision with any Gem
      * it will be game over
      */
-    onEverySeconds(3000.0) {
+    onEverySeconds(Intervals.generateGem) {
         if (!isYetGameOver) {
-            val spriteGem = displaySprite(
-                atlas = spriteAtlas,
-                name = SpriteName.gem,
-                position = getRandomPositionTop(),
-                useRandomMoving = false
-            )
-            val animator = animator(parallel = false)
-            animator.moveTo(
-                spriteGem,
-                x = spriteGem.x,
-                y = spriteGem.y + Config.windowSize.height,
-                time = TimeSpan(5000.0)
-            )
+            displayAndMovingGem(spriteAtlas)
             spriteEagle.onCollision { view ->
                 when (view.name) {
                     SpriteName.gem -> {
                         isYetGameOver = true
-                        val spriteSizeDiffs = spriteEagle.getSizeDiffs()
-                        displaySpriteDestroyOnce(
+                        onCollisionEagleAndGem(
                             spriteAtlas,
-                            position = Position(
-                                spriteEagle.x + spriteSizeDiffs.x,
-                                spriteEagle.y + spriteSizeDiffs.y
-                            )
+                            spriteEagle,
+                            spriteCherry
                         )
-                        removeChild(spriteEagle)
-                        removeChild(scoreText)
-                        removeChild(spriteCherry)
-                        displayGameOver()
                     }
                 }
             }
@@ -119,6 +100,9 @@ private fun Container.startEagleAndCherryGame(
     }
 }
 
+/**
+ * Change [EagleAndCherryGameState.score] and display it [displayScore]
+ */
 private fun Container.onCollisionEagleAndCherry(
     spriteAtlas: Atlas,
     spriteCherry: Sprite?,
@@ -139,4 +123,56 @@ private fun Container.onCollisionEagleAndCherry(
 
         removeChild(spriteCherry)
     }
+}
+
+/**
+ * Apply game over logic and display it [displayGameOver]
+ */
+private fun Container.onCollisionEagleAndGem(
+    spriteAtlas: Atlas,
+    spriteEagle: Sprite,
+    spriteCherry: Sprite?
+) {
+    val spriteSizeDiffs = spriteEagle.getSizeDiffs()
+    displaySpriteDestroyOnce(
+        spriteAtlas,
+        position = Position(
+            spriteEagle.x + spriteSizeDiffs.x,
+            spriteEagle.y + spriteSizeDiffs.y
+        )
+    )
+    removeChild(spriteEagle)
+    removeChild(scoreText)
+    removeChild(spriteCherry)
+    displayGameOver()
+}
+
+/**
+ * Create [Sprite] with [SpriteName.gem] and display it on random position of top screen
+ * Moving it down, change only Y coordinate
+ */
+private fun Container.displayAndMovingGem(
+    spriteAtlas: Atlas
+): Sprite {
+    val spriteGem = displaySprite(
+        atlas = spriteAtlas,
+        name = SpriteName.gem,
+        position = getRandomPositionTop(),
+        useRandomMoving = false
+    )
+
+    val animator = animator(parallel = false)
+    animator.moveTo(
+        spriteGem,
+        x = spriteGem.x,
+        y = spriteGem.y + Config.windowSize.height,
+        time = TimeSpan(Intervals.fallGem)
+    )
+
+    return spriteGem
+}
+
+object Intervals {
+    const val fallGem = 5000.0
+    const val generateGem = 3000.0
 }
