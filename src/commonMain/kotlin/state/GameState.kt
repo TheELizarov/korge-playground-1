@@ -44,15 +44,21 @@ class GameState {
         }
     }
 
-    fun health() {
-        _life += Life.health
+    fun health(
+        value: Int = Life.health
+    ) {
+        _life += value
         checkLife()
     }
 
-    fun damage() {
-        _life -= Life.damage
+    fun damage(
+        value: Int = Life.damage
+    ) {
+        _life -= value
         checkLife()
     }
+
+    fun
 
     private fun checkLife() {
         if (life == Life.max) {
