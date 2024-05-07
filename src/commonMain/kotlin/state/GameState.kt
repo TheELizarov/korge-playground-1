@@ -13,6 +13,10 @@ class GameState {
         get() = _score
     private var _score: Int = 0
 
+    val life: Int
+        get() = _life
+    private var _life: Int = 0
+
     val state: State
         get() = _state
     private var _state: State = State.LAUNCH
@@ -40,6 +44,7 @@ class GameState {
 
     fun reset() {
         _score = 0
+        _life = Life.max
         _state = State.LAUNCH
     }
 
@@ -71,5 +76,11 @@ class GameState {
          * User lose
          */
         GAME_OVER,
+    }
+
+    object Life {
+        const val min = 0
+        const val max = 10
+        const val damage = 1
     }
 }
