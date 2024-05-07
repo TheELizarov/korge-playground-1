@@ -8,7 +8,7 @@ package state
  *  - Cherries display random on the window
  *  - Eagle must fly to cherry and eat it, after that score increment
  */
-class EagleAndCherryGameState {
+class GameState {
     val score: Int
         get() = _score
     private var _score: Int = 0

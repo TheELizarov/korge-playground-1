@@ -9,7 +9,7 @@ import model.*
 import state.*
 import ui.*
 
-val stateGame = EagleAndCherryGameState()
+val stateGame = GameState()
 
 suspend fun initGameEagleCollectCherry() = Korge(
     title = Config.title,
@@ -26,7 +26,7 @@ private fun Container.startEagleAndCherryGame(
     spriteAtlas: Atlas
 ) {
 
-    stateGame.changeState(EagleAndCherryGameState.State.PLAY)
+    stateGame.changeState(GameState.State.PLAY)
 
     val spriteEagle = displaySprite(
         atlas = spriteAtlas,
@@ -43,7 +43,7 @@ private fun Container.startEagleAndCherryGame(
      * Per 5 seconds generate Cherry [Sprite]
      * in random [Position]
      *
-     * If Eagle takes it [EagleAndCherryGameState.score] increment
+     * If Eagle takes it [GameState.score] increment
      * and display on window
      *
      * If eagle does not take it, Cherry will be removing
@@ -89,7 +89,7 @@ private fun Container.startEagleAndCherryGame(
             spriteEagle.onCollision { view ->
                 when (view.name) {
                     SpriteName.gem -> {
-                        stateGame.changeState(EagleAndCherryGameState.State.GAME_OVER)
+                        stateGame.changeState(GameState.State.GAME_OVER)
                         onCollisionEagleAndGem(
                             spriteAtlas,
                             spriteEagle,
@@ -103,12 +103,12 @@ private fun Container.startEagleAndCherryGame(
 }
 
 /**
- * Change [EagleAndCherryGameState.score] and display it [displayScore]
+ * Change [GameState.score] and display it [displayScore]
  */
 private fun Container.onCollisionEagleAndCherry(
     spriteAtlas: Atlas,
     spriteCherry: Sprite?,
-    stateGame: EagleAndCherryGameState
+    stateGame: GameState
 ) {
     spriteCherry?.let { sprite ->
         stateGame.increment()
