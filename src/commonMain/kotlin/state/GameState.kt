@@ -1,5 +1,7 @@
 package state
 
+import kotlin.math.*
+
 /**
  * Logic model for simple game "Eagle and Cherries"
  * GamePlay (part 1):
@@ -42,6 +44,22 @@ class GameState {
         }
     }
 
+    fun health() {
+        _life += Life.health
+        checkLife()
+    }
+
+    fun damage() {
+        _life -= Life.damage
+        checkLife()
+    }
+
+    private fun checkLife() {
+        if (life == Life.max) {
+            changeState(State.GAME_OVER)
+        }
+    }
+
     fun reset() {
         _score = 0
         _life = Life.max
@@ -81,6 +99,8 @@ class GameState {
     object Life {
         const val min = 0
         const val max = 10
+
         const val damage = 1
+        const val health = 1
     }
 }
