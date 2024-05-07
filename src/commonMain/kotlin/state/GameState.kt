@@ -58,8 +58,6 @@ class GameState {
         checkLife()
     }
 
-    fun
-
     private fun checkLife() {
         if (life == Life.max) {
             changeState(State.GAME_OVER)
