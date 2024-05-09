@@ -38,7 +38,7 @@ private fun Container.startEagleAndCherryGame(
     controlByKeys(spriteEagle)
 
     displayScore(gameState.score)
-    displayLife(gameState.life)
+    displayLife(gameState.life, Config.windowSize.width.toInt())
 
     /**
      * Per 5 seconds generate Cherry [Sprite]
@@ -90,7 +90,9 @@ private fun Container.startEagleAndCherryGame(
             spriteEagle.onCollision { view ->
                 when (view.name) {
                     SpriteName.gem -> {
-                        gameState.changeState(GameState.State.GAME_OVER)
+                        gameState.damage()
+                        displayLife(gameState.life)
+
                         onCollisionEagleAndGem(
                             spriteAtlas,
                             spriteEagle,
@@ -144,10 +146,13 @@ private fun Container.onCollisionEagleAndGem(
             spriteEagle.y + spriteSizeDiffs.y
         )
     )
-    removeChild(spriteEagle)
-    removeChild(scoreText)
-    removeChild(spriteCherry)
-    displayGameOver()
+    gameState.onGameOver {
+        removeChild(spriteEagle)
+        removeChild(scoreText)
+        removeChild(spriteCherry)
+        removeChild(lifeText)
+        displayGameOver()
+    }
 }
 
 /**

@@ -17,7 +17,7 @@ class GameState {
 
     val life: Int
         get() = _life
-    private var _life: Int = 0
+    private var _life: Int = Life.max
 
     val state: State
         get() = _state
@@ -40,6 +40,15 @@ class GameState {
     ) {
         when (state) {
             State.PLAY -> block()
+            else -> Unit
+        }
+    }
+
+    fun onGameOver(
+        block: () -> Unit = {}
+    ) {
+        when (state) {
+            State.GAME_OVER -> block()
             else -> Unit
         }
     }
@@ -102,7 +111,7 @@ class GameState {
 
     object Life {
         const val min = 0
-        const val max = 10
+        const val max = 3
 
         const val damage = 1
         const val health = 1

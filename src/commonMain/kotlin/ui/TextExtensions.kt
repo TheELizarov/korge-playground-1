@@ -7,7 +7,8 @@ import model.*
 
 var lifeText: Text? = null
 fun Container.displayLife(
-    value: Int
+    value: Int,
+    screenWidth: Int? = null
 ) {
     val text = "Life: $value"
     when (lifeText) {
@@ -17,7 +18,21 @@ fun Container.displayLife(
         }
         else -> lifeText?.text = text
     }
-    lifeText?.horizontalAlign = HorizontalAlign.RIGHT
+    /**
+     * Display text on Top Right Of Screen
+     */
+    screenWidth?.let { width ->
+        val textScale = lifeText?.scaleXY ?: 0f
+        val widthText = (lifeText?.width ?: 0f) * textScale
+        val y = lifeText?.y ?: 0f
+
+        val point = Point(
+            x = width - widthText,
+            y = y
+        )
+
+        lifeText?.position(point)
+    }
 }
 
 var gameOverText: Text? = null
