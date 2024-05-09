@@ -90,6 +90,8 @@ private fun Container.startEagleAndCherryGame(
             spriteEagle.onCollision { view ->
                 when (view.name) {
                     SpriteName.gem -> {
+                        removeChild(view)
+
                         gameState.damage()
                         displayLife(gameState.life)
 
