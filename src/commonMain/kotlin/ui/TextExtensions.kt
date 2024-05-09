@@ -1,9 +1,22 @@
 package ui
 
-import korlibs.image.text.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import model.*
+
+var lifeText: Text? = null
+fun Container.displayLife(
+    value: Int
+) {
+    val text = "Life: $value"
+    when (lifeText) {
+        null -> {
+            lifeText = text(text = text)
+            scoreText?.scaleXY = 5f
+        }
+        else -> lifeText?.text = text
+    }
+}
 
 var gameOverText: Text? = null
 fun Container.displayGameOver() {
