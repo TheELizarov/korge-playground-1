@@ -1,5 +1,6 @@
 package ui
 
+import korlibs.image.text.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import model.*
@@ -12,10 +13,11 @@ fun Container.displayLife(
     when (lifeText) {
         null -> {
             lifeText = text(text = text)
-            scoreText?.scaleXY = 5f
+            lifeText?.scaleXY = 5f
         }
         else -> lifeText?.text = text
     }
+    lifeText?.horizontalAlign = HorizontalAlign.RIGHT
 }
 
 var gameOverText: Text? = null

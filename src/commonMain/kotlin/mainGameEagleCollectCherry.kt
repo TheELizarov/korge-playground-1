@@ -38,6 +38,7 @@ private fun Container.startEagleAndCherryGame(
     controlByKeys(spriteEagle)
 
     displayScore(gameState.score)
+    displayLife(gameState.life)
 
     /**
      * Per 5 seconds generate Cherry [Sprite]
