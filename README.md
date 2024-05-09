@@ -12,7 +12,8 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 - Simple Game: Eagle fly on the screen and collect Cherry witch generate in random position on Screen
 
 ### Result of projects
-- Demo2: Eagle and Gem with fall from top of the screen https://t.me/CodeEveryDayWithMe/814
+- Demo 3: Eagle has more then one life for game https://t.me/CodeEveryDayWithMe/820
+- Demo 2: Eagle and Gem with fall from top of the screen https://t.me/CodeEveryDayWithMe/814
 - Demo 1: Simple game Eagle collect Cherry https://t.me/CodeEveryDayWithMe/808
 
 ## playground/apply-collisions
