@@ -14,23 +14,27 @@ fun Container.displayLifeControl(
     atlas: Atlas,
     name: String,
     indexOfSprite: Int = 0,
+    size: Size = Size(40f, 41f),
     screenWidth: Int? = null,
     value: Int
 ) {
     lifeUIHorizontalStack?.removeChildren()
     lifeUIHorizontalStack = uiHorizontalStack {
-
-        for (index in 0..value) {
+        text(
+            "Life: "
+        )
+        List(value) {
             val sprite = atlas.getSpriteAnimation(name)
             val image = sprite.getSprite(indexOfSprite)
             uiImage(
-                size = Size(100f, 100f),
+                size = size,
                 bitmap = image,
-                scaleMode = ScaleMode.FIT,
+                scaleMode = ScaleMode.FILL,
                 contentAnchor = Anchor.CENTER
             )
         }
     }
+    lifeUIHorizontalStack?.scaleXY = 2f
 
     screenWidth?.let { width ->
         val textScale = lifeUIHorizontalStack?.scaleXY ?: 0f
