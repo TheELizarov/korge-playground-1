@@ -20,9 +20,6 @@ fun Container.displayLifeControl(
 ) {
     lifeUIHorizontalStack?.removeChildren()
     lifeUIHorizontalStack = uiHorizontalStack {
-        text(
-            "Life: "
-        )
         List(value) {
             val sprite = atlas.getSpriteAnimation(name)
             val image = sprite.getSprite(indexOfSprite)
