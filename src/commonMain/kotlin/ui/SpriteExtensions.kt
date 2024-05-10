@@ -1,12 +1,50 @@
 package ui
 
 import korlibs.image.atlas.*
+import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.time.*
 import model.*
 import kotlin.math.*
 import kotlin.random.*
+
+private var lifeUIHorizontalStack: UIHorizontalStack? = null
+fun Container.displayLifeControl(
+    atlas: Atlas,
+    name: String,
+    indexOfSprite: Int = 0,
+    screenWidth: Int? = null,
+    value: Int
+) {
+    lifeUIHorizontalStack?.removeChildren()
+    lifeUIHorizontalStack = uiHorizontalStack {
+
+        for (index in 0..value) {
+            val sprite = atlas.getSpriteAnimation(name)
+            val image = sprite.getSprite(indexOfSprite)
+            uiImage(
+                size = Size(100f, 100f),
+                bitmap = image,
+                scaleMode = ScaleMode.FIT,
+                contentAnchor = Anchor.CENTER
+            )
+        }
+    }
+
+    screenWidth?.let { width ->
+        val textScale = lifeUIHorizontalStack?.scaleXY ?: 0f
+        val widthText = (lifeUIHorizontalStack?.width ?: 0f) * textScale
+        val y = lifeUIHorizontalStack?.y ?: 0f
+
+        val point = Point(
+            x = width - widthText,
+            y = y
+        )
+
+        lifeUIHorizontalStack?.position(point)
+    }
+}
 
 /**
  * Create [Sprite] for animate destroy [Sprite] with [SpriteName.destroy] for any

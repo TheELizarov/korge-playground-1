@@ -1,6 +1,5 @@
 package ui
 
-import korlibs.image.text.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import model.*
