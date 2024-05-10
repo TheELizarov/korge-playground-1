@@ -38,7 +38,10 @@ private fun Container.startEagleAndCherryGame(
     controlByKeys(spriteEagle)
 
     displayScore(gameState.score)
-//    displayLife(gameState.life, Config.windowSize.width.toInt())
+    /**
+     * If you want display simple text with counter of life
+     * use  displayLife(gameState.life, Config.windowSize.width.toInt())
+     */
     displayLifeControl(
         atlas = spriteAtlas,
         name = SpriteName.eagle,
@@ -99,7 +102,10 @@ private fun Container.startEagleAndCherryGame(
                         removeChild(view)
 
                         gameState.damage()
-//                        displayLife(gameState.life)
+                        /**
+                         * If you want display simple text with counter of life
+                         * use  displayLife(gameState.life)
+                         */
                         displayLifeControl(
                             atlas = spriteAtlas,
                             name = SpriteName.eagle,
