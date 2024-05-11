@@ -1,9 +1,13 @@
 import korlibs.image.atlas.*
+import korlibs.image.bitmap.*
+import korlibs.image.format.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
 import korlibs.korge.animate.*
+import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.korge.view.collision.*
+import korlibs.math.geom.*
 import korlibs.time.*
 import model.*
 import state.*
@@ -18,7 +22,7 @@ suspend fun initGameEagleCollectCherry() = Korge(
     backgroundColor = Config.backgroundColors
 ) {
     val spriteAtlas = resourcesVfs["Sunny-Land/atlas/atlas.json"].readAtlas()
-
+    displayBackground()
     startEagleAndCherryGame(spriteAtlas)
 }
 
@@ -198,6 +202,19 @@ private fun Container.displayAndMovingGem(
     )
 
     return spriteGem
+}
+
+/**
+ * Display background for game
+ */
+private suspend fun Container.displayBackground() {
+    val background = resourcesVfs["Sunny-Land/atlas/back.png"].readBitmapSlice()
+    uiImage(
+        size = Config.windowSize,
+        bitmap = background,
+        scaleMode = ScaleMode.FILL,
+        contentAnchor = Anchor.CENTER
+    )
 }
 
 object Intervals {
