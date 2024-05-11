@@ -4,6 +4,8 @@ import korlibs.korge.view.*
 import korlibs.math.geom.*
 import model.*
 
+
+
 var lifeText: Text? = null
 fun Container.displayLife(
     value: Int,
@@ -17,6 +19,9 @@ fun Container.displayLife(
         }
         else -> lifeText?.text = text
     }
+
+    lifeText?.color = Config.textColor
+
     /**
      * Display text on Top Right Of Screen
      */
@@ -44,6 +49,8 @@ fun Container.displayGameOver() {
         }
         else -> gameOverText?.text = text
     }
+
+    gameOverText?.color = Config.textColor
     gameOverText?.position(
         Point(200f, 200f)
     )
@@ -61,6 +68,7 @@ fun Container.displayScore(
         }
         else -> scoreText?.text = text
     }
+    scoreText?.color = Config.textColor
 }
 
 var debugText: Text? = null
@@ -72,5 +80,6 @@ fun Container.debugLog(
             null -> debugText = text(text = message)
             else -> debugText?.text = message
         }
+        debugText?.color = Config.textColor
     }
 }
