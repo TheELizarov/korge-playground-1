@@ -9,7 +9,7 @@ import model.*
 import kotlin.math.*
 import kotlin.random.*
 
-private var lifeUIHorizontalStack: UIHorizontalStack? = null
+var lifeUIHorizontalStack: UIHorizontalStack? = null
 fun Container.displayLifeControl(
     atlas: Atlas,
     name: String,

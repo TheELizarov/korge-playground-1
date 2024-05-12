@@ -9,11 +9,13 @@ import korlibs.korge.view.*
 import korlibs.korge.view.collision.*
 import korlibs.math.geom.*
 import korlibs.time.*
+import manager.*
 import model.*
 import state.*
 import ui.*
 
 val gameState = GameState()
+val gameControlsManager = GameControlsManager
 
 suspend fun initGameEagleCollectCherry() = Korge(
     title = Config.title,
@@ -42,6 +44,7 @@ private fun Container.startEagleAndCherryGame(
     controlByKeys(spriteEagle)
 
     displayScore(gameState.score)
+
     /**
      * If you want display simple text with counter of life
      * use  displayLife(gameState.life, Config.windowSize.width.toInt())
@@ -127,6 +130,17 @@ private fun Container.startEagleAndCherryGame(
             }
         }
     }
+
+    gameControlsManager.withGameControls(
+        type = GameControls.Types.playing
+    ) {
+        add(
+            listOf(
+                spriteEagle, spriteCherry, scoreText,
+                lifeText, lifeUIHorizontalStack
+            )
+        )
+    }
 }
 
 /**
@@ -171,10 +185,18 @@ private fun Container.onCollisionEagleAndGem(
         )
     )
     gameState.onGameOver {
-        removeChild(spriteEagle)
-        removeChild(scoreText)
-        removeChild(spriteCherry)
-        removeChild(lifeText)
+//        removeChild(spriteEagle)
+//        removeChild(scoreText)
+//        removeChild(spriteCherry)
+//        removeChild(lifeText)
+        gameControlsManager.withGameControls(
+            type = GameControls.Types.playing
+        ) {
+            list.forEach { gameControl ->
+                removeChild(gameControl)
+            }
+        }
+
         displayGameOver()
     }
 }

@@ -11,24 +11,24 @@ class GameControls(
      */
     val type: String
 ) {
-    val list: List<View>
+    val list: List<View?>
         get() = _list
-    private val _list: MutableList<View> = mutableListOf()
+    private val _list: MutableList<View?> = mutableListOf()
 
     fun add(
-        value: List<View>
+        value: List<View?>
     ) {
         _list.addAll(value)
     }
 
     fun add(
-        value: View
+        value: View?
     ) {
         _list.add(value)
     }
 
     fun remove(
-        value: View
+        value: View?
     ) {
         _list.remove(value)
     }
