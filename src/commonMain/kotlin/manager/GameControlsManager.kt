@@ -6,7 +6,12 @@ import state.*
  * Manage different list of [GameControls]
  */
 object GameControlsManager {
-    val list: List<GameControls> = mutableListOf()
+    /**
+     * Default list of [GameControls]
+     */
+    private val list: MutableList<GameControls> = GameControls.Types.list.map { type ->
+        GameControls(type)
+    }.toMutableList()
 
     fun withGameControls(
         type: String,
@@ -15,5 +20,11 @@ object GameControlsManager {
         list.firstOrNull { gameControls ->
             gameControls.type == type
         }?.let(block)
+    }
+
+    fun add(
+        value: GameControls
+    ) {
+        list.add(value)
     }
 }

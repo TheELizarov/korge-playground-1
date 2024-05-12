@@ -44,5 +44,9 @@ class GameControls(
         const val pause = "pause"
         const val gameover = "gameover"
 
+        val list = setOf(
+            launch, playing, settings,
+            pause, gameover
+        )
     }
 }
