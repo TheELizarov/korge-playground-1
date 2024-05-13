@@ -185,10 +185,6 @@ private fun Container.onCollisionEagleAndGem(
         )
     )
     gameState.onGameOver {
-//        removeChild(spriteEagle)
-//        removeChild(scoreText)
-//        removeChild(spriteCherry)
-//        removeChild(lifeText)
         gameControlsManager.withGameControls(
             type = GameControls.Types.playing
         ) {
