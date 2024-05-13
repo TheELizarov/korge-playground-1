@@ -27,7 +27,7 @@ suspend fun initPersonAnimations() = Korge(
 
     val spritePlayer = sprite(playerIdle)
     spritePlayer.position(Point(200f, 200f))
-    spritePlayer.scaleXY = 10f
+    spritePlayer.scaleXY = 7f
     spritePlayer.playAnimationLooped(
         spriteDisplayTime = TimeSpan(200.0)
     )
