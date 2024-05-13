@@ -6,6 +6,13 @@ One branch for one completed simple project.
 
 More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe 
 
+## playground/person-animations
+
+### Description
+- Example for using different sprite animation for person
+
+### Result of projects
+
 ## playground/game-eagle-collect-cherry
 
 ### Description
