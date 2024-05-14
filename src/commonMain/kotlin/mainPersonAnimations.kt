@@ -56,6 +56,9 @@ suspend fun initPersonAnimations() = Korge(
     }
 }
 
+/**
+ * Mirror by X for [Sprite]
+ */
 private fun Sprite.mirrorByX(
     reset: Boolean = false
 ) {
