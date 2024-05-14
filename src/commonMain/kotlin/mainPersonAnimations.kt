@@ -7,6 +7,7 @@ import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.time.*
 import model.*
+import kotlin.math.*
 import kotlin.time.Duration.Companion.milliseconds
 
 suspend fun initPersonAnimations() = Korge(
@@ -36,11 +37,15 @@ suspend fun initPersonAnimations() = Korge(
         val animation = when {
             views.input.keys[Key.RIGHT] -> {
                 spritePlayer.x += 1
+                spritePlayer.mirrorByX(reset = true)
+
                 playerRun
             }
 
             views.input.keys[Key.LEFT] -> {
                 spritePlayer.x -= 1
+                spritePlayer.mirrorByX()
+
                 playerRun
             }
 
@@ -48,5 +53,21 @@ suspend fun initPersonAnimations() = Korge(
             else -> playerIdle
         }
         spritePlayer.playAnimation(animation)
+    }
+}
+
+private fun Sprite.mirrorByX(
+    reset: Boolean = false
+) {
+    val  blockMirror = {
+        scaleX *= -1
+        x -= frameWidth * scaleX
+    }
+    when {
+        reset -> {
+            if (scaleX < 0)
+                blockMirror()
+        }
+        scaleX > 0 -> blockMirror()
     }
 }
