@@ -9,6 +9,26 @@ import model.*
 import kotlin.math.*
 import kotlin.random.*
 
+/**
+ * Display mirroring frame by X for [Sprite]
+ */
+fun Sprite.mirrorByX(
+    reset: Boolean = false
+) {
+    val  blockMirror = {
+        scaleX *= -1
+        x -= frameWidth * scaleX
+    }
+    when {
+        reset -> {
+            if (scaleX < 0)
+                blockMirror()
+        }
+        scaleX > 0 -> blockMirror()
+    }
+}
+
+
 var lifeUIHorizontalStack: UIHorizontalStack? = null
 fun Container.displayLifeControl(
     atlas: Atlas,
