@@ -103,7 +103,8 @@ fun Container.controlByDragAndDrop(
  * Default value of changing position is 50f
  */
 fun Container.controlByKeys(
-    sprite: Sprite
+    sprite: Sprite,
+    useMirrorByX: Boolean = true
 ) {
     val diffs = 50f
     val blockOnClick: (x: Float, y: Float, log: String) -> Unit = { x, y, log ->
@@ -135,9 +136,15 @@ fun Container.controlByKeys(
     }
     keys {
         down(Key.LEFT) {
+            if (useMirrorByX) {
+                sprite.mirrorByX()
+            }
             blockOnClick(-diffs,  0f, "left")
         }
         down(Key.RIGHT) {
+            if (useMirrorByX) {
+                sprite.mirrorByX(reset = true)
+            }
             blockOnClick(diffs,  0f, "right")
         }
         down(Key.UP) {
