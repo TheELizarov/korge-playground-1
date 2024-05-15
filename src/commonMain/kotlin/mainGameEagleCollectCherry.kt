@@ -1,3 +1,4 @@
+import korlibs.event.*
 import korlibs.image.atlas.*
 import korlibs.image.bitmap.*
 import korlibs.image.format.*
@@ -41,7 +42,17 @@ private fun Container.startEagleAndCherryGame(
         useRandomMoving = false
     )
 
-    controlByKeys(spriteEagle)
+    controlByKeys(spriteEagle) { key ->
+        when (key) {
+            Key.LEFT -> {
+                spriteEagle.mirrorByX(reset = true)
+            }
+            Key.RIGHT -> {
+                spriteEagle.mirrorByX()
+            }
+            else -> Unit
+        }
+    }
 
     displayScore(gameState.score)
 
