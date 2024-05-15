@@ -8,8 +8,8 @@ import korlibs.math.geom.*
 import model.*
 import ui.*
 
-suspend fun main() = initGameEagleCollectCherry()
-//suspend fun main() = initPersonAnimations()
+//suspend fun main() = initGameEagleCollectCherry()
+suspend fun main() = initPersonAnimations()
 
 suspend fun initSimpleDisplaySpritesAndWorkWithIt() = Korge(
     title = Config.title,
