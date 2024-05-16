@@ -27,6 +27,21 @@ suspend fun initPersonAnimations() = Korge(
     val playerJump = spriteAtlas.getSpriteAnimation("player/jump")
     val playerRun = spriteAtlas.getSpriteAnimation("player/run")
 
+    val playerStates = setOf(
+        PlayerState(
+            animation = playerIdle,
+            state = State.IDLE
+        ),
+        PlayerState(
+            animation = playerRun,
+            state = State.RUN
+        ),
+        PlayerState(
+            animation = playerJump,
+            state = State.JUMP
+        )
+    )
+
     val spritePlayer = sprite(playerIdle)
     spritePlayer.position(Point(200f, 200f))
     spritePlayer.scaleXY = 7f
@@ -55,4 +70,15 @@ suspend fun initPersonAnimations() = Korge(
         }
         spritePlayer.playAnimation(animation)
     }
+}
+
+data class PlayerState(
+    val animation: SpriteAnimation,
+    val state: State
+)
+
+enum class State {
+    IDLE,
+    RUN,
+    JUMP
 }
