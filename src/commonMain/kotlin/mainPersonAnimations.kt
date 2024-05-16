@@ -19,10 +19,6 @@ suspend fun initPersonAnimations() = Korge(
 ) {
     val spriteAtlas = resourcesVfs["Sunny-Land/atlas/atlas.json"].readAtlas()
 
-    val playerClimb = spriteAtlas.getSpriteAnimation("player/climb")
-    val playerCrunch = spriteAtlas.getSpriteAnimation("player/crouch")
-    val playerHurt = spriteAtlas.getSpriteAnimation("player/hurt")
-
     val playerIdle = spriteAtlas.getSpriteAnimation("player/idle")
     val playerJump = spriteAtlas.getSpriteAnimation("player/jump")
     val playerRun = spriteAtlas.getSpriteAnimation("player/run")
