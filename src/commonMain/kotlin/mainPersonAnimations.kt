@@ -2,14 +2,11 @@ import korlibs.event.*
 import korlibs.image.atlas.*
 import korlibs.io.file.std.*
 import korlibs.korge.*
-import korlibs.korge.input.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.time.*
 import model.*
 import ui.*
-import kotlin.math.*
-import kotlin.time.Duration.Companion.milliseconds
 
 suspend fun initPersonAnimations() = Korge(
     title = Config.title,
@@ -38,12 +35,7 @@ suspend fun initPersonAnimations() = Korge(
         )
     )
 
-    val spritePlayer = sprite(playerIdle)
-    spritePlayer.position(Point(200f, 200f))
-    spritePlayer.scaleXY = 7f
-    spritePlayer.playAnimationLooped(
-        spriteDisplayTime = TimeSpan(200.0)
-    )
+    val spritePlayer = getSprite(playerIdle)
 
     addUpdater {
         val animation = when {
@@ -66,6 +58,18 @@ suspend fun initPersonAnimations() = Korge(
         }
         spritePlayer.playAnimation(animation)
     }
+}
+
+private fun Container.getSprite(
+    animation: SpriteAnimation
+) : Sprite {
+    val result = sprite(animation)
+    result.position(Point(200f, 200f))
+    result.scaleXY = 7f
+    result.playAnimationLooped(
+        spriteDisplayTime = TimeSpan(200.0)
+    )
+    return result
 }
 
 data class PlayerState(
