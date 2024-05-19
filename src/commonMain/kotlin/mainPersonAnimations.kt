@@ -16,11 +16,45 @@ suspend fun initPersonAnimations() = Korge(
 ) {
     val spriteAtlas = resourcesVfs["Sunny-Land/atlas/atlas.json"].readAtlas()
 
+    val playerStates = getPlayerStates(spriteAtlas)
+
+    val playerIdle = playerStates.get(State.IDLE)
+    val playerRun = playerStates.get(State.RUN)
+    val playerJump = playerStates.get(State.JUMP)
+
+    val spritePlayer = getPlayerSprite(playerIdle.animation)
+
+    addUpdater {
+        val animation = when {
+            views.input.keys[Key.RIGHT] -> {
+                spritePlayer.x += PlayerParams.movingVelocityX
+                spritePlayer.mirrorByX(reset = true)
+
+                playerRun.animation
+            }
+
+            views.input.keys[Key.LEFT] -> {
+                spritePlayer.x -= PlayerParams.movingVelocityX
+                spritePlayer.mirrorByX()
+
+                playerRun.animation
+            }
+
+            views.input.keys[Key.UP] -> playerJump.animation
+            else -> playerIdle.animation
+        }
+        spritePlayer.playAnimation(animation)
+    }
+}
+
+private fun Container.getPlayerStates(
+    spriteAtlas: Atlas
+): Set<PlayerState> {
     val playerIdle = spriteAtlas.getSpriteAnimation("player/idle")
     val playerJump = spriteAtlas.getSpriteAnimation("player/jump")
     val playerRun = spriteAtlas.getSpriteAnimation("player/run")
 
-    val playerStates = setOf(
+    return setOf(
         PlayerState(
             animation = playerIdle,
             state = State.IDLE
@@ -34,29 +68,13 @@ suspend fun initPersonAnimations() = Korge(
             state = State.JUMP
         )
     )
+}
 
-    val spritePlayer = getPlayerSprite(playerIdle)
-
-    addUpdater {
-        val animation = when {
-            views.input.keys[Key.RIGHT] -> {
-                spritePlayer.x += PlayerParams.movingSpeedX
-                spritePlayer.mirrorByX(reset = true)
-
-                playerRun
-            }
-
-            views.input.keys[Key.LEFT] -> {
-                spritePlayer.x -= PlayerParams.movingSpeedX
-                spritePlayer.mirrorByX()
-
-                playerRun
-            }
-
-            views.input.keys[Key.UP] -> playerJump
-            else -> playerIdle
-        }
-        spritePlayer.playAnimation(animation)
+private fun Set<PlayerState>.get(
+    state: State
+): PlayerState {
+    return first { value ->
+        value.state == state
     }
 }
 
@@ -90,5 +108,5 @@ object PlayerParams {
     const val scale = 7f
     val position = Point(200f, 200f)
     val frameDelay = TimeSpan(200.0)
-    val movingSpeedX = 1f
+    val movingVelocityX = 1f
 }
