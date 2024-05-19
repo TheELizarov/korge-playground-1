@@ -35,7 +35,7 @@ suspend fun initPersonAnimations() = Korge(
         )
     )
 
-    val spritePlayer = getSprite(playerIdle)
+    val spritePlayer = getPlayerSprite(playerIdle)
 
     addUpdater {
         val animation = when {
@@ -60,14 +60,14 @@ suspend fun initPersonAnimations() = Korge(
     }
 }
 
-private fun Container.getSprite(
+private fun Container.getPlayerSprite(
     animation: SpriteAnimation
 ) : Sprite {
     val result = sprite(animation)
-    result.position(Point(200f, 200f))
-    result.scaleXY = 7f
+    result.position(PlayerParams.position)
+    result.scaleXY = PlayerParams.scale
     result.playAnimationLooped(
-        spriteDisplayTime = TimeSpan(200.0)
+        spriteDisplayTime = PlayerParams.frameDelay
     )
     return result
 }
@@ -81,4 +81,13 @@ enum class State {
     IDLE,
     RUN,
     JUMP
+}
+
+/**
+ * Init player [Sprite] for [getPlayerSprite]
+ */
+object PlayerParams {
+    const val scale = 7f
+    val position = Point(200f, 200f)
+    val frameDelay = TimeSpan(200.0)
 }
