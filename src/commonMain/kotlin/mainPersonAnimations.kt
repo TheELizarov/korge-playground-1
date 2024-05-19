@@ -40,14 +40,14 @@ suspend fun initPersonAnimations() = Korge(
     addUpdater {
         val animation = when {
             views.input.keys[Key.RIGHT] -> {
-                spritePlayer.x += 1
+                spritePlayer.x += PlayerParams.movingSpeedX
                 spritePlayer.mirrorByX(reset = true)
 
                 playerRun
             }
 
             views.input.keys[Key.LEFT] -> {
-                spritePlayer.x -= 1
+                spritePlayer.x -= PlayerParams.movingSpeedX
                 spritePlayer.mirrorByX()
 
                 playerRun
@@ -90,4 +90,5 @@ object PlayerParams {
     const val scale = 7f
     val position = Point(200f, 200f)
     val frameDelay = TimeSpan(200.0)
+    val movingSpeedX = 1f
 }
