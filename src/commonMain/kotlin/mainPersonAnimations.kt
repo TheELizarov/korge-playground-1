@@ -20,7 +20,6 @@ suspend fun initPersonAnimations() = Korge(
 
     val playerIdle = playerStates.get(State.IDLE)
     val playerRun = playerStates.get(State.RUN)
-    val playerJump = playerStates.get(State.JUMP)
 
     val spritePlayer = getPlayerSprite(playerIdle.animation)
 
@@ -40,7 +39,7 @@ suspend fun initPersonAnimations() = Korge(
                 playerRun
             }
 
-            views.input.keys[Key.UP] -> playerJump
+            views.input.keys[Key.UP] -> playerStates.get(State.JUMP)
             views.input.keys[Key.Q] -> playerStates.get(State.HURT)
             views.input.keys[Key.W] -> playerStates.get(State.CROUCH)
             views.input.keys[Key.E] -> playerStates.get(State.CLIMB)
