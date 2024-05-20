@@ -25,28 +25,28 @@ suspend fun initPersonAnimations() = Korge(
     val spritePlayer = getPlayerSprite(playerIdle.animation)
 
     addUpdater {
-        val animation = when {
+        val state = when {
             views.input.keys[Key.RIGHT] -> {
                 spritePlayer.x += PlayerParams.movingVelocityX
                 spritePlayer.mirrorByX(reset = true)
 
-                playerRun.animation
+                playerRun
             }
 
             views.input.keys[Key.LEFT] -> {
                 spritePlayer.x -= PlayerParams.movingVelocityX
                 spritePlayer.mirrorByX()
 
-                playerRun.animation
+                playerRun
             }
 
-            views.input.keys[Key.UP] -> playerJump.animation
-            views.input.keys[Key.Q] -> playerStates.get(State.HURT).animation
-            views.input.keys[Key.W] -> playerStates.get(State.CROUCH).animation
-            views.input.keys[Key.E] -> playerStates.get(State.CLIMB).animation
-            else -> playerIdle.animation
+            views.input.keys[Key.UP] -> playerJump
+            views.input.keys[Key.Q] -> playerStates.get(State.HURT)
+            views.input.keys[Key.W] -> playerStates.get(State.CROUCH)
+            views.input.keys[Key.E] -> playerStates.get(State.CLIMB)
+            else -> playerIdle
         }
-        spritePlayer.playAnimation(animation)
+        spritePlayer.playAnimation(state.animation)
     }
 }
 
@@ -93,12 +93,8 @@ data class PlayerState(
 )
 
 enum class State {
-    IDLE,
-    RUN,
-    JUMP,
-    HURT,
-    CROUCH,
-    CLIMB
+    IDLE, RUN, JUMP,
+    HURT, CROUCH, CLIMB
 }
 
 /**
