@@ -41,6 +41,9 @@ suspend fun initPersonAnimations() = Korge(
             }
 
             views.input.keys[Key.UP] -> playerJump.animation
+            views.input.keys[Key.Q] -> playerStates.get(State.HURT).animation
+            views.input.keys[Key.W] -> playerStates.get(State.CROUCH).animation
+            views.input.keys[Key.E] -> playerStates.get(State.CLIMB).animation
             else -> playerIdle.animation
         }
         spritePlayer.playAnimation(animation)
@@ -53,20 +56,14 @@ private fun Container.getPlayerStates(
     val playerIdle = spriteAtlas.getSpriteAnimation("player/idle")
     val playerJump = spriteAtlas.getSpriteAnimation("player/jump")
     val playerRun = spriteAtlas.getSpriteAnimation("player/run")
+    val playerHurt = spriteAtlas.getSpriteAnimation("player/hurt")
+    val playerCrouch = spriteAtlas.getSpriteAnimation("player/crouch")
+    val playerClimb = spriteAtlas.getSpriteAnimation("player/climb")
 
     return setOf(
-        PlayerState(
-            animation = playerIdle,
-            state = State.IDLE
-        ),
-        PlayerState(
-            animation = playerRun,
-            state = State.RUN
-        ),
-        PlayerState(
-            animation = playerJump,
-            state = State.JUMP
-        )
+        PlayerState(playerIdle, State.IDLE), PlayerState(playerRun, State.RUN),
+        PlayerState(playerJump, State.JUMP), PlayerState(playerHurt, State.HURT),
+        PlayerState(playerCrouch, State.CROUCH), PlayerState(playerClimb, State.CLIMB),
     )
 }
 
@@ -80,7 +77,7 @@ private fun Set<PlayerState>.get(
 
 private fun Container.getPlayerSprite(
     animation: SpriteAnimation
-) : Sprite {
+): Sprite {
     val result = sprite(animation)
     result.position(PlayerParams.position)
     result.scaleXY = PlayerParams.scale
@@ -98,7 +95,10 @@ data class PlayerState(
 enum class State {
     IDLE,
     RUN,
-    JUMP
+    JUMP,
+    HURT,
+    CROUCH,
+    CLIMB
 }
 
 /**
