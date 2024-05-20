@@ -12,6 +12,7 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 - Example for using different sprite animation for person
 
 ### Result of projects
+- Dem0 4: Add new 3 state of player https://t.me/CodeEveryDayWithMe/852
 - Demo 3: Mirror for Eagle Sprite in Game https://t.me/CodeEveryDayWithMe/849
 - Demo 2: Mirror transformation of animation example https://t.me/CodeEveryDayWithMe/846
 - Demo 1: Example idle, run, jump animations of person https://t.me/CodeEveryDayWithMe/840
