@@ -9,6 +9,13 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 ## playground/person-animations
 
 ### Description
+- Example for using physics KorGE libs 
+
+### Result of projects
+
+## playground/person-animations
+
+### Description
 - Example for using different sprite animation for person
 
 ### Result of projects
