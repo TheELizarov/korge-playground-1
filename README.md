@@ -10,6 +10,7 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 
 ### Description
 - Example for using physics KorGE libs 
+- Docs https://docs.korge.org/physics/
 
 ### Result of projects
 
