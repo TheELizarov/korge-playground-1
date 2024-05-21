@@ -9,7 +9,8 @@ import model.*
 import ui.*
 
 //suspend fun main() = initGameEagleCollectCherry()
-suspend fun main() = initPersonAnimations()
+//suspend fun main() = initPersonAnimations()
+suspend fun main() = initPhysics()
 
 suspend fun initSimpleDisplaySpritesAndWorkWithIt() = Korge(
     title = Config.title,
