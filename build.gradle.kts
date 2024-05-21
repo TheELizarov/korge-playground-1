@@ -26,5 +26,6 @@ korge {
 
 dependencies {
     add("commonMainApi", project(":deps"))
+
 }
 
