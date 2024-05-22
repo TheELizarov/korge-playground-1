@@ -74,12 +74,14 @@ fun Container.controlByDragAndDrop(
     ) { draggableInfo ->
         val x = draggableInfo.viewNextX
         val y = draggableInfo.viewNextY
+        view.x = x
+        view.y = y
 
-        val animator = animator(parallel = false)
-        animator.moveTo(
-            view = view,
-            x = x,
-            y = y
-        )
+//        val animator = animator(parallel = false)
+//        animator.moveTo(
+//            view = view,
+//            x = x,
+//            y = y
+//        )
     }
 }
