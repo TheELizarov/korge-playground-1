@@ -1,4 +1,5 @@
 
+import korlibs.image.color.*
 import korlibs.korge.*
 import korlibs.korge.animate.*
 import korlibs.korge.box2d.*
@@ -10,6 +11,7 @@ import korlibs.time.*
 import model.*
 import org.jbox2d.dynamics.*
 import ui.*
+import kotlin.random.*
 
 suspend fun initPhysics() = Korge(
     title = Config.title,
@@ -39,12 +41,22 @@ private fun Container.generateCircles() {
                 friction = 0.2,
                 restitution = 0.3 + (n * 0.1)
             )
+
+        item.color = getRandomColor()
+
         controlByDragAndDrop(item)
         when (n) {
             4 -> controlByMouse(item)
             else -> Unit
         }
     }
+}
+
+private fun getRandomColor(): RGBA {
+    val r = Random.nextInt(255)
+    val g = Random.nextInt(255)
+    val b = Random.nextInt(255)
+    return RGBA(r, g, b)
 }
 
 fun Container.controlByMouse(
