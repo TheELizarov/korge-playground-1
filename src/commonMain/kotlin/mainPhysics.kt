@@ -51,16 +51,8 @@ fun Container.controlByMouse(
             val point = input.mousePos
             val x = point.x
             val y = point.y
-
-            val animator = animator(parallel = false)
-            animator.moveTo(
-                view,
-                x, y,
-                time = TimeSpan(2000.0),
-                easing = Easing.EASE_OUT
-            )
-
-            debugLog("Mouse click point = $point")
+            view.x = x
+            view.y = y
         }
     }
 }
@@ -76,12 +68,5 @@ fun Container.controlByDragAndDrop(
         val y = draggableInfo.viewNextY
         view.x = x
         view.y = y
-
-//        val animator = animator(parallel = false)
-//        animator.moveTo(
-//            view = view,
-//            x = x,
-//            y = y
-//        )
     }
 }
