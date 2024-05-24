@@ -40,6 +40,10 @@ private fun Container.generateCircles() {
                 restitution = 0.3 + (n * 0.1)
             )
         controlByDragAndDrop(item)
+        when (n) {
+            4 -> controlByMouse(item)
+            else -> Unit
+        }
     }
 }
 
