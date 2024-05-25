@@ -43,11 +43,10 @@ private fun Container.generateCircleInMouseClick() {
 private fun Container.generateCircle(
     point: Point
 ) {
-    circle(50f)
+    circle(getRandomRadius())
         .xy(point.x, point.y)
         .anchor(Anchor.CENTER)
         .apply {
-            radius = getRandomRadius()
             color = getRandomColor()
         }
         .registerBodyWithFixture(
