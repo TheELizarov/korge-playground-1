@@ -19,7 +19,43 @@ suspend fun initPhysics() = Korge(
     virtualSize = Config.virtualSize,
     backgroundColor = Config.backgroundColors
 ) {
-    generateCircles()
+//    generateCircles()
+    generateCircleInMouseClick()
+}
+
+private fun Container.generateCircleInMouseClick() {
+    solidRect(920, 100)
+        .xy(0, 620)
+        .registerBodyWithFixture(
+            type = BodyType.STATIC,
+            friction = 0.2,
+            restitution = 0.2
+        )
+
+    mouse {
+        click {
+            val point = input.mousePos
+            generateCircle(point)
+        }
+    }
+}
+
+private fun Container.generateCircle(
+    point: Point
+) {
+    circle(50f)
+        .xy(point.x, point.y)
+        .anchor(Anchor.CENTER)
+        .apply {
+            radius = getRandomRadius()
+            color = getRandomColor()
+        }
+        .registerBodyWithFixture(
+            type = BodyType.DYNAMIC,
+            linearVelocityY = getRandomVelocity(),
+            friction = 0.2,
+            restitution = 0.5
+        )
 }
 
 private fun Container.generateCircles() {
@@ -57,6 +93,20 @@ private fun getRandomColor(): RGBA {
     val g = Random.nextInt(255)
     val b = Random.nextInt(255)
     return RGBA(r, g, b)
+}
+
+private fun getRandomVelocity(
+    min: Double = 5.0,
+    max: Double = 10.0
+): Double {
+    return Random.nextDouble(min, max)
+}
+
+private fun getRandomRadius(
+    min: Double = 5.0,
+    max: Double = 50.0
+): Float {
+    return Random.nextDouble(min, max).toFloat()
 }
 
 fun Container.controlByMouse(
