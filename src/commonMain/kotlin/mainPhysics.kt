@@ -24,13 +24,7 @@ suspend fun initPhysics() = Korge(
 }
 
 private fun Container.generateCircleInMouseClick() {
-    solidRect(920, 100)
-        .xy(0, 620)
-        .registerBodyWithFixture(
-            type = BodyType.STATIC,
-            friction = 0.2,
-            restitution = 0.2
-        )
+    floor()
 
     mouse {
         click {
@@ -38,6 +32,24 @@ private fun Container.generateCircleInMouseClick() {
             generateCircle(point)
         }
     }
+}
+
+private fun Container.floor() {
+    val florHeight = 50
+    val floorWidth = 400
+    val floorColor = Colors.DARKGREEN
+
+    val x = (Config.width - floorWidth).div(2)
+    val y = Config.height * 0.75
+    val position = Point(x, y)
+
+    solidRect(floorWidth, florHeight, floorColor)
+        .xy(position)
+        .registerBodyWithFixture(
+            type = BodyType.STATIC,
+            friction = 0.2,
+            restitution = 0.2
+        )
 }
 
 private fun Container.generateCircle(
