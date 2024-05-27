@@ -19,10 +19,17 @@ suspend fun initPhysics() = Korge(
     virtualSize = Config.virtualSize,
     backgroundColor = Config.backgroundColors
 ) {
-//    generateCircles()
+    /**
+     * First sample for physics branch
+     * generateCircles()
+     */
+
     generateCircleInMouseClick()
 }
 
+/**
+ * Sample for generate circle by click of mouse
+ */
 private fun Container.generateCircleInMouseClick() {
     floor()
 
@@ -34,6 +41,9 @@ private fun Container.generateCircleInMouseClick() {
     }
 }
 
+/**
+ * Create static horizontal plank with uses as floor for circles [generateCircle]
+ */
 private fun Container.floor() {
     val florHeight = 50
     val floorWidth = 400
@@ -52,6 +62,10 @@ private fun Container.floor() {
         )
 }
 
+/**
+ * Generate circle in [Point] of mouse click
+ * with diffs sizes and colors, vertical velocity
+ */
 private fun Container.generateCircle(
     point: Point
 ) {
@@ -69,6 +83,9 @@ private fun Container.generateCircle(
         )
 }
 
+/**
+ * Sample for generate and drag and drop 5 circles
+ */
 private fun Container.generateCircles() {
     solidRect(920, 100)
         .xy(0, 620)
