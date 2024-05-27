@@ -13,6 +13,7 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 - Docs https://docs.korge.org/physics/
 
 ### Result of projects
+- Demo 2: Generate circles as body with diffs colors and size by mouse clicks https://t.me/CodeEveryDayWithMe/869
 - Demo 1: Generate circles as body in physics world and add drag and drop it https://t.me/CodeEveryDayWithMe/864
 
 ## playground/person-animations
