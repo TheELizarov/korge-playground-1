@@ -5,15 +5,18 @@ import korlibs.korge.box2d.*
 import korlibs.korge.input.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
+import korlibs.render.*
 import model.*
 import org.jbox2d.dynamics.*
+import ui.*
 import kotlin.random.*
 
 suspend fun initPhysics() = Korge(
     title = Config.title,
     windowSize = Config.windowSize,
     virtualSize = Config.virtualSize,
-    backgroundColor = Config.backgroundColors
+    backgroundColor = Config.backgroundColors,
+    quality = GameWindow.Quality.PERFORMANCE
 ) {
     /**
      * First sample for physics branch
@@ -34,6 +37,16 @@ private fun Container.generateCircleInMouseClick() {
             val point = input.mousePos
             generateCircle(point)
         }
+    }
+
+    generateCirclesEverySeconds()
+}
+
+private fun Container.generateCirclesEverySeconds(
+    interval: Int = 100
+) {
+    onEverySeconds(interval.toDouble()) {
+        generateCircle(getRandomPoint())
     }
 }
 
@@ -131,6 +144,12 @@ private fun getRandomRadius(
     max: Double = 50.0
 ): Float {
     return Random.nextDouble(min, max).toFloat()
+}
+
+private fun getRandomPoint(): Point {
+    val x = Random.nextDouble(0.0, Config.width.toDouble())
+    val y = Random.nextDouble(0.0, Config.height.toDouble())
+    return Point(x, y)
 }
 
 fun Container.controlByMouse(
