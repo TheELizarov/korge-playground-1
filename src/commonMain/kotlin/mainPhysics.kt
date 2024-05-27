@@ -1,16 +1,12 @@
 
 import korlibs.image.color.*
 import korlibs.korge.*
-import korlibs.korge.animate.*
 import korlibs.korge.box2d.*
 import korlibs.korge.input.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
-import korlibs.math.interpolation.*
-import korlibs.time.*
 import model.*
 import org.jbox2d.dynamics.*
-import ui.*
 import kotlin.random.*
 
 suspend fun initPhysics() = Korge(
