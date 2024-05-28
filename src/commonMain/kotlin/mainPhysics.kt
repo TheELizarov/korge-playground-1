@@ -42,6 +42,9 @@ private fun Container.generateCircleInMouseClick() {
     generateCirclesEverySeconds()
 }
 
+/**
+ * Add Circle to Screen in [getRandomPoint]
+ */
 private fun Container.generateCirclesEverySeconds(
     interval: Int = 100
 ) {
