@@ -6,6 +6,14 @@ One branch for one completed simple project.
 
 More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe 
 
+## playground/ui
+
+### Description
+- Example for using ui views and containers KorGE libs
+- Docs https://docs.korge.org/views/ui/
+
+### Result of projects
+
 ## playground/person-animations
 
 ### Description
