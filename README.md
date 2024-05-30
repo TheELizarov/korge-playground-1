@@ -13,6 +13,7 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 - Docs https://docs.korge.org/views/ui/
 
 ### Result of projects
+- Demo 1: Example for button with click counter https://t.me/CodeEveryDayWithMe/877
 
 ## playground/person-animations
 

@@ -18,6 +18,9 @@ private var clickCounterByButton = 0
 private val clickCounterButtonLabel: String
     get() = "Clicks count $clickCounterByButton"
 
+/**
+ * Example for creating button of counter clicks
+ */
 private fun Container.displayButtonClickCounter() {
     uiButton(
         label = clickCounterButtonLabel
