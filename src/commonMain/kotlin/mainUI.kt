@@ -36,12 +36,19 @@ private val words = listOf(
  * Example for  display list of check boxes
  */
 private fun Container.displayCheckBoxes() {
+    Config.textColor = Colors.WHITE
     uiVerticalStack {
+        debugLog("debug log")
+
         words.map { word ->
             uiCheckBox(
                 text = word,
                 checked = true
-            )
+            ) {
+                onChange {
+                    debugLog("check ${this.text} = ${this.checked}")
+                }
+            }
         }
     }
 }

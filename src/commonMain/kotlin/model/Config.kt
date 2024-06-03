@@ -16,7 +16,7 @@ object Config {
     const val textColorValue = "#000000"
 
     val backgroundColors = Colors[backgroundColorValue]
-    val textColor = Colors[textColorValue]
+    var textColor = Colors[textColorValue]
 
     const val randomMovingMin = 1.5
     const val randomMovingMax = 5.0
