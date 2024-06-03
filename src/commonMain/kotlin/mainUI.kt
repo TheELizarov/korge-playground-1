@@ -46,7 +46,7 @@ private fun Container.displayCheckBoxes() {
                 checked = true
             ) {
                 onChange {
-                    debugLog("check ${this.text} = ${this.checked}")
+                    debugLog("check $text = $checked")
                 }
             }
         }
