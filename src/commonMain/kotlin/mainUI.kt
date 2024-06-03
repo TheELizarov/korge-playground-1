@@ -20,7 +20,30 @@ suspend fun initUI() = Korge(
      *  displayButtonClickCounter()
      */
 
-    displayButton()
+    /**
+     * Example for learning base properties of button
+     *  displayButton()
+     */
+
+    displayCheckBoxes()
+}
+
+private val words = listOf(
+    "Start", "Code", "Every", "Day"
+)
+
+/**
+ * Example for  display list of check boxes
+ */
+private fun Container.displayCheckBoxes() {
+    uiVerticalStack {
+        words.map { word ->
+            uiCheckBox(
+                text = word,
+                checked = true
+            )
+        }
+    }
 }
 
 private var clickCounterByButton = 0
