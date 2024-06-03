@@ -63,6 +63,10 @@ private fun Container.displayButton() {
     animateChangingButtonTextColor(button)
 }
 
+/**
+ * Animate change [UIButton] background corners radius
+ * on any updating frames using [onEverySeconds]
+ */
 private fun Container.animateChangingButtonRadius(
     button: UIButton
 ) {
@@ -82,6 +86,9 @@ private fun Container.animateChangingButtonRadius(
     }
 }
 
+/**
+ * Animate change label text of [UIButton] on any updating frames
+ */
 private fun Container.animateChangingButtonTextColor(
     button: UIButton
 ) {
