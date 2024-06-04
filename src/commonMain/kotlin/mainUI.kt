@@ -25,12 +25,34 @@ suspend fun initUI() = Korge(
      *  displayButton()
      */
 
-    displayCheckBoxes()
+    /**
+     * Example for learning [UICheckBox]
+     * displayCheckBoxes()
+     */
+
+    displayComboBox()
 }
 
 private val words = listOf(
     "Start", "Code", "Every", "Day"
 )
+
+private fun Container.displayComboBox() {
+    Config.textColor = Colors.WHITE
+    uiVerticalStack {
+        debugLog("Select item")
+
+        uiComboBox(
+            items = words
+        ) {
+            onSelectionUpdate {
+                debugLog(
+                    message = "${this.selectedItem}"
+                )
+            }
+        }
+    }
+}
 
 /**
  * Example for  display list of check boxes
