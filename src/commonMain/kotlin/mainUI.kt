@@ -37,11 +37,21 @@ private val words = listOf(
     "Start", "Code", "Every", "Day"
 )
 
-private fun Container.displayComboBox() {
+/**
+ * Container witch add logs above container from block
+ */
+private fun Container.withDebugLogs(
+    block: @ViewDslMarker UIVerticalStack.() -> Unit = {}
+) {
     Config.textColor = Colors.WHITE
     uiVerticalStack {
         debugLog("Select item")
+        block()
+    }
+}
 
+private fun Container.displayComboBox() {
+    withDebugLogs {
         uiComboBox(
             items = words
         ) {
