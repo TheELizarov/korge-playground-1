@@ -1,5 +1,6 @@
 import korlibs.image.color.*
 import korlibs.korge.*
+import korlibs.korge.input.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
@@ -30,7 +31,12 @@ suspend fun initUI() = Korge(
      * displayCheckBoxes()
      */
 
-    displayComboBox()
+    /**
+     * Example for learning [UIComboBox]
+     *  displayComboBox()
+     */
+
+    displayRadioGroup()
 }
 
 private val words = listOf(
@@ -47,6 +53,22 @@ private fun Container.withDebugLogs(
     uiVerticalStack {
         debugLog("Select item")
         block()
+    }
+}
+
+private fun Container.displayRadioGroup() {
+    withDebugLogs {
+        val group = UIRadioButtonGroup()
+        words.map {
+            uiRadioButton(
+                text = it,
+                group = group
+            ) {
+                onClick {
+                    debugLog("Set $text")
+                }
+            }
+        }
     }
 }
 
