@@ -44,18 +44,8 @@ private val words = listOf(
 )
 
 /**
- * Container witch add logs above container from block
+ * Example for display [UIRadioButtonGroup] and [UIRadioButton]
  */
-private fun Container.withDebugLogs(
-    block: @ViewDslMarker UIVerticalStack.() -> Unit = {}
-) {
-    Config.textColor = Colors.WHITE
-    uiVerticalStack {
-        debugLog("Select item")
-        block()
-    }
-}
-
 private fun Container.displayRadioGroup() {
     withDebugLogs {
         val group = UIRadioButtonGroup()
@@ -71,6 +61,20 @@ private fun Container.displayRadioGroup() {
         }
     }
 }
+
+/**
+ * Container witch add logs above container from block
+ */
+private fun Container.withDebugLogs(
+    block: @ViewDslMarker UIVerticalStack.() -> Unit = {}
+) {
+    Config.textColor = Colors.WHITE
+    uiVerticalStack {
+        debugLog("Select item")
+        block()
+    }
+}
+
 
 /**
  * Example for display [UIComboBox]
