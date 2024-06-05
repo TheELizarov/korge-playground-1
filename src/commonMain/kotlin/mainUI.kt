@@ -50,6 +50,9 @@ private fun Container.withDebugLogs(
     }
 }
 
+/**
+ * Example for display [UIComboBox]
+ */
 private fun Container.displayComboBox() {
     withDebugLogs {
         uiComboBox(
