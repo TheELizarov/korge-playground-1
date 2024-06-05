@@ -13,6 +13,8 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 - Docs https://docs.korge.org/views/ui/
 
 ### Result of projects
+- Demo 4: Example for display ComboBox https://t.me/CodeEveryDayWithMe/895
+- Demo 3: Example for display CheckBox https://t.me/CodeEveryDayWithMe/887
 - Demo 2: Example for learning properties of button and simple animations https://t.me/CodeEveryDayWithMe/883
 - Demo 1: Example for button with click counter https://t.me/CodeEveryDayWithMe/877
 
