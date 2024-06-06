@@ -36,12 +36,38 @@ suspend fun initUI() = Korge(
      *  displayComboBox()
      */
 
-    displayRadioGroup()
+    /**
+     * Example for learning [UIRadioButtonGroup]
+     *  displayRadioGroup()
+     */
+
+    displayProgressBar()
 }
 
 private val words = listOf(
     "Start", "Code", "Every", "Day"
 )
+
+private fun Container.displayProgressBar() {
+    val min = 0f
+    val max = 100f
+
+    val uiProgressBar =  uiProgressBar(
+        size = Size(400f, 50f),
+        current = min,
+        maximum = max
+    )
+    uiProgressBar.position(Point(100f, 20f))
+
+    onEverySeconds(10.0) {
+        var current = uiProgressBar.current
+        current = when {
+            current < max -> current + 0.25f
+            else -> min
+        }
+        uiProgressBar.current = current
+    }
+}
 
 /**
  * Example for display [UIRadioButtonGroup] and [UIRadioButton]
