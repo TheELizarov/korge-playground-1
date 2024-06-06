@@ -48,6 +48,11 @@ private val words = listOf(
     "Start", "Code", "Every", "Day"
 )
 
+/**
+ * Example for animate [UIProgressBar]
+ * by using [onEverySeconds] callback for
+ * changing progress
+ */
 private fun Container.displayProgressBar() {
     val min = 0f
     val max = 100f
