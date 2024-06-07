@@ -1,5 +1,6 @@
 import korlibs.image.color.*
 import korlibs.korge.*
+import korlibs.korge.annotations.*
 import korlibs.korge.input.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
@@ -56,8 +57,26 @@ private val words = listOf(
 /**
  * Example for display [UITreeView]
  */
+@OptIn(KorgeExperimental::class)
 private fun Container.displayTree() {
 
+    val innerNodes = words.mapIndexed { index, value ->
+        UITreeViewNode(
+            value,
+            UITreeViewNode("index $index")
+        )
+    }
+
+    val outerNodes = UITreeViewNode(
+        "KorGE",
+        innerNodes
+    )
+
+    uiTreeView(
+        UITreeViewList(
+            listOf(outerNodes)
+        )
+    )
 }
 
 /**
