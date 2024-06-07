@@ -41,12 +41,21 @@ suspend fun initUI() = Korge(
      *  displayRadioGroup()
      */
 
-    displayProgressBar()
+    /**
+     * Example for using [UIProgressBar]
+     *  displayProgressBar()
+     */
+
+    displayTree()
 }
 
 private val words = listOf(
     "Start", "Code", "Every", "Day"
 )
+
+private fun Container.displayTree() {
+
+}
 
 /**
  * Example for animate [UIProgressBar]
