@@ -2,6 +2,7 @@ import korlibs.image.color.*
 import korlibs.korge.*
 import korlibs.korge.annotations.*
 import korlibs.korge.input.*
+import korlibs.korge.style.*
 import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
@@ -63,7 +64,23 @@ private val words = listOf(
  * Example for display [UISlider]
  */
 private fun Container.displaySlider() {
-
+    withDebugLogs {
+        uiSlider(
+            value = 50,
+            min = -50,
+            max = 50,
+            step = 1
+        ) {
+            styles {
+                uiSelectedColor = MaterialColors.RED_600
+                uiBackgroundColor = MaterialColors.BLUE_50
+            }
+            decimalPlaces = 2
+            changed {
+                debugLog("value = $value")
+            }
+        }
+    }
 }
 
 /**
