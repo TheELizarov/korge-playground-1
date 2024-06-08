@@ -47,7 +47,12 @@ suspend fun initUI() = Korge(
      *  displayProgressBar()
      */
 
-    displayTree()
+    /**
+     * Example for using [UITreeView]
+     *  displayTree()
+     */
+
+    displaySlider()
 }
 
 private val words = listOf(
