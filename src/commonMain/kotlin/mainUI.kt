@@ -55,6 +55,13 @@ private val words = listOf(
 )
 
 /**
+ * Example for display [UISlider]
+ */
+private fun Container.displaySlider() {
+
+}
+
+/**
  * Example for display [UITreeView]
  */
 @OptIn(KorgeExperimental::class)
