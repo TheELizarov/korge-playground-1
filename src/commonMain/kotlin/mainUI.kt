@@ -74,12 +74,12 @@ private fun Container.displayVerticalList() {
     uiVerticalList(
         width = 100f,
         provider = object : UIVerticalList.Provider {
-            override val fixedHeight: Float = 400f
+            override val fixedHeight: Float = 16f
             override val numItems: Int = content.size
             override fun getItemHeight(index: Int): Float = 16f
 
             override fun getItemView(index: Int, vlist: UIVerticalList): View {
-                return Text(content[index])
+                return uiText(content[index])
             }
         }
     )
