@@ -53,7 +53,12 @@ suspend fun initUI() = Korge(
      *  displayTree()
      */
 
-    displaySlider()
+    /**
+     * Example for using [UISlider]
+     *  displaySlider()
+     */
+
+    displayVerticalList()
 }
 
 private val words = listOf(
