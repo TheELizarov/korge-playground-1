@@ -70,19 +70,27 @@ private val words = listOf(
  */
 @OptIn(KorgeExperimental::class)
 private fun Container.displayVerticalList() {
-    val content = words
-    uiVerticalList(
-        width = 100f,
-        provider = object : UIVerticalList.Provider {
-            override val fixedHeight: Float = 16f
-            override val numItems: Int = content.size
-            override fun getItemHeight(index: Int): Float = 16f
+    val content = mutableListOf<String>()
+    (0..100).forEach {
+        content.addAll(words)
+    }
+    uiScrollable(
+        size = Size(100f, 400f)
+    ) {
+        uiVerticalList(
+            width = 100f,
+            provider = object : UIVerticalList.Provider {
+                override val fixedHeight: Float = 16f
+                override val numItems: Int = content.size
+                override fun getItemHeight(index: Int): Float = 16f
 
-            override fun getItemView(index: Int, vlist: UIVerticalList): View {
-                return uiText(content[index])
+                override fun getItemView(index: Int, vlist: UIVerticalList): View {
+                    return uiText(content[index])
+                }
             }
-        }
-    )
+        )
+    }
+
 }
 
 /**
