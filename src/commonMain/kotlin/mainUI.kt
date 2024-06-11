@@ -71,7 +71,7 @@ private val words = listOf(
 @OptIn(KorgeExperimental::class)
 private fun Container.displayVerticalList() {
     val content = mutableListOf<String>()
-    (0..100).forEach {
+    repeat((0..100).count()) {
         content.addAll(words)
     }
     uiScrollable(
