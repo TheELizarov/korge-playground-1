@@ -72,7 +72,8 @@ private val words = listOf(
 private fun Container.displayVerticalList() {
     val content = words
     uiVerticalList(
-        object : UIVerticalList.Provider {
+        width = 100f,
+        provider = object : UIVerticalList.Provider {
             override val fixedHeight: Float = 400f
             override val numItems: Int = content.size
             override fun getItemHeight(index: Int): Float = 16f
