@@ -61,6 +61,25 @@ private val words = listOf(
 )
 
 /**
+ * Example for using [UIVerticalList]
+ */
+@OptIn(KorgeExperimental::class)
+private fun Container.displayVerticalList() {
+    val content = words
+    uiVerticalList(
+        object : UIVerticalList.Provider {
+            override val fixedHeight: Float = 400f
+            override val numItems: Int = content.size
+            override fun getItemHeight(index: Int): Float = 16f
+
+            override fun getItemView(index: Int, vlist: UIVerticalList): View {
+                return Text(content[index])
+            }
+        }
+    )
+}
+
+/**
  * Example for display [UISlider]
  */
 private fun Container.displaySlider() {
