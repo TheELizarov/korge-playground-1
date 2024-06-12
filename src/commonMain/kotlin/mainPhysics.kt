@@ -3,10 +3,13 @@ import korlibs.image.color.*
 import korlibs.korge.*
 import korlibs.korge.box2d.*
 import korlibs.korge.input.*
+import korlibs.korge.style.*
+import korlibs.korge.ui.*
 import korlibs.korge.view.*
 import korlibs.math.geom.*
 import korlibs.render.*
 import model.*
+import org.jbox2d.collision.shapes.*
 import org.jbox2d.dynamics.*
 import ui.*
 import kotlin.random.*
@@ -23,7 +26,36 @@ suspend fun initPhysics() = Korge(
      * generateCircles()
      */
 
-    generateCircleInMouseClick()
+    /**
+     * Example for random generating circles
+     *  generateCircleInMouseClick()
+     */
+
+    generateTextInMouseClick()
+}
+
+private fun Container.generateTextInMouseClick() {
+    val text = listOf("Code",  "Every",  "Day")
+
+    floor()
+
+    mouse {
+        click {
+            val point = input.mousePos
+
+            val view = generateText(
+                text = text.random(),
+                point
+            )
+            controlByDragAndDrop(view)
+        }
+    }
+
+
+    text.forEach {
+        val view = generateText(it, getRandomPoint())
+        controlByDragAndDrop(view)
+    }
 }
 
 /**
@@ -57,7 +89,7 @@ private fun Container.generateCirclesEverySeconds(
  * Create static horizontal plank with uses as floor for circles [generateCircle]
  */
 private fun Container.floor() {
-    val florHeight = 50
+    val floorHeight = 50
     val floorWidth = 400
     val floorColor = Colors.DARKGREEN
 
@@ -65,7 +97,7 @@ private fun Container.floor() {
     val y = Config.height * 0.75
     val position = Point(x, y)
 
-    solidRect(floorWidth, florHeight, floorColor)
+    solidRect(floorWidth, floorHeight, floorColor)
         .xy(position)
         .registerBodyWithFixture(
             type = BodyType.STATIC,
@@ -93,6 +125,29 @@ private fun Container.generateCircle(
             friction = 0.2,
             restitution = 0.5
         )
+}
+
+private fun Container.generateText(
+    text: String,
+    point: Point
+): View {
+    val colors = Colors.colorsByName.values.toList()
+
+    val view = uiText(
+        text = text,
+    ).xy(point.x, point.y)
+        .registerBodyWithFixture(
+            type = BodyType.DYNAMIC,
+            linearVelocityY = getRandomVelocity(),
+            friction = 0.2,
+            restitution = 0.5,
+            shape = null
+        )
+    view.styles {
+        textColor = colors.random()
+        textSize = getRandom( 20.0, 50.0)
+    }
+    return view
 }
 
 /**
