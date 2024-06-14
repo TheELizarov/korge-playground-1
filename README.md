@@ -13,18 +13,23 @@ More details in telegram Code Every Day 🚀 https://t.me/CodeEveryDayWithMe
 - Docs https://docs.korge.org/views/ui/
 
 ### Result of projects
+- Demo 8: Example for display UIVerticalList https://t.me/CodeEveryDayWithMe/927
+- Demo 7: Example for display UITreeView https://t.me/CodeEveryDayWithMe/919
+- Demo 6: Example for animate ProgressBar https://t.me/CodeEveryDayWithMe/917
+- Demo 5: Example for display RadioGroup https://t.me/CodeEveryDayWithMe/908
 - Demo 4: Example for display ComboBox https://t.me/CodeEveryDayWithMe/895
 - Demo 3: Example for display CheckBox https://t.me/CodeEveryDayWithMe/887
 - Demo 2: Example for learning properties of button and simple animations https://t.me/CodeEveryDayWithMe/883
 - Demo 1: Example for button with click counter https://t.me/CodeEveryDayWithMe/877
 
-## playground/person-animations
+## playground/physics
 
 ### Description
 - Example for using physics KorGE libs 
 - Docs https://docs.korge.org/physics/
 
 ### Result of projects
+- Demo 4: Using uiText as physics body https://t.me/CodeEveryDayWithMe/929
 - Demo 3: Generate circle in random point by timer https://t.me/CodeEveryDayWithMe/872
 - Demo 2: Generate circles as body with diffs colors and size by mouse clicks https://t.me/CodeEveryDayWithMe/869
 - Demo 1: Generate circles as body in physics world and add drag and drop it https://t.me/CodeEveryDayWithMe/864
