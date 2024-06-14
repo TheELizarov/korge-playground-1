@@ -34,6 +34,9 @@ suspend fun initPhysics() = Korge(
     generateTextInMouseClick()
 }
 
+/**
+ * Example using physics for [UIText]
+ */
 private fun Container.generateTextInMouseClick() {
     val text = listOf("Code",  "Every",  "Day")
 
@@ -127,6 +130,9 @@ private fun Container.generateCircle(
         )
 }
 
+/**
+ * Use view as [Body] for physics properties
+ */
 private fun Container.generateText(
     text: String,
     point: Point
